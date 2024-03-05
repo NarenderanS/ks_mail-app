@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
 import 'package:ks_mail/src/utils/constants/constant.dart';
 
-import '../../presentation/state_management/mail_list.dart';
-import '../../presentation/state_management/user.dart';
+import '../../presentation/riverpod/mail_list.dart';
+import '../../presentation/riverpod/user.dart';
 import '../../domain/entities/new_mail.dart';
 import '../../presentation/views/mail_content.dart';
 

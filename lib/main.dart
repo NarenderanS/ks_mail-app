@@ -6,7 +6,7 @@ import 'package:ks_mail/src/presentation/views/login.dart';
 import 'package:ks_mail/src/presentation/views/register.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/rounded_button_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ks_mail/src/presentation/state_management/localization.dart';
+import 'package:ks_mail/src/presentation/riverpod/localization.dart';
 
 import 'src/config/router/app_routes.dart';
 import 'src/config/themes/app_theme.dart';

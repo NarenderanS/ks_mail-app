@@ -4,8 +4,8 @@ import 'package:ks_mail/src/presentation/views/home.dart';
 import 'package:ks_mail/src/presentation/views/settings.dart';
 import 'package:ks_mail/src/presentation/widgets/drawer_widgets/drawer_body_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ks_mail/src/presentation/state_management/navigator.dart';
-import 'package:ks_mail/src/presentation/state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
+import 'package:ks_mail/src/presentation/riverpod/user.dart';
 
 import '../../../utils/constants/commom_functions.dart';
 import '../../views/login.dart';

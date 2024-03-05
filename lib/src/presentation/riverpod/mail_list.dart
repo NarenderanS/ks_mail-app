@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
 import 'package:ks_mail/src/utils/constants/mail.dart';
 import 'package:ks_mail/src/utils/date_time.dart';
-import 'package:ks_mail/src/presentation/state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/user.dart';
 
 import '../../domain/entities/mail.dart';
 

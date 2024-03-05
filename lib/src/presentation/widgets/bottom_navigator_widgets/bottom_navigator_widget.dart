@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/utils/constants/constant.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ks_mail/src/presentation/state_management/navigator.dart';
+import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
 
 class BottomNavigation extends ConsumerWidget {
   const BottomNavigation({

@@ -6,7 +6,7 @@ import 'package:ks_mail/src/presentation/views/register.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/rounded_button_widget.dart';
 import 'package:ks_mail/src/presentation/widgets/text_widgets/link_text.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ks_mail/src/presentation/state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/user.dart';
 import '../../utils/constants/commom_functions.dart';
 import '../../utils/text_field_controllers.dart';
 import '../widgets/text_field_widgets/email_widget.dart';

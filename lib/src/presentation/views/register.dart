@@ -4,7 +4,7 @@ import 'package:ks_mail/src/presentation/widgets/text_field_widgets/email_widget
 import 'package:ks_mail/src/presentation/widgets/text_field_widgets/password_widget.dart';
 import 'package:ks_mail/src/utils/constants/constant.dart';
 import 'package:ks_mail/src/presentation/views/login.dart';
-import 'package:ks_mail/src/presentation/state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/user.dart';
 
 import '../../utils/constants/commom_functions.dart';
 import '../../utils/text_field_controllers.dart';

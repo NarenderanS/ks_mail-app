@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/mail.dart';
 import 'package:ks_mail/src/domain/entities/user.dart';
 import 'package:ks_mail/src/utils/constants/commom_functions.dart';
-import 'package:ks_mail/src/presentation/state_management/navigator.dart';
+import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
 
-import '../../state_management/user.dart';
+import '../../riverpod/user.dart';
 import '../../../utils/constants/constant.dart';
 
 class AddressWidget extends ConsumerWidget {

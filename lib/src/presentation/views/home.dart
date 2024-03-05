@@ -7,11 +7,11 @@ import 'package:ks_mail/src/presentation/widgets/bottom_navigator_widgets/bottom
 import 'package:ks_mail/src/presentation/widgets/drawer_widgets/drawer_widget.dart';
 import 'package:ks_mail/src/utils/constants/constant.dart';
 
-import 'package:ks_mail/src/presentation/state_management/mail_list.dart';
-import '../../../state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_list.dart';
 import '../../domain/entities/mail.dart';
 import '../../utils/constants/commom_functions.dart';
-import '../state_management/navigator.dart';
+import '../riverpod/navigator.dart';
+import '../riverpod/user.dart';
 import '../widgets/empty_bin_widget.dart';
 import '../widgets/floating_action_button_widgets/floating_action_button_widget.dart';
 import '../widgets/list_view_content_widget.dart';

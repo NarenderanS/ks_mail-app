@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../state_management/mail_list.dart';
+import '../../riverpod/mail_list.dart';
 import '../../../utils/constants/commom_functions.dart';
 
 class ThreeDotPopUpMenuButtonWidget extends ConsumerWidget {

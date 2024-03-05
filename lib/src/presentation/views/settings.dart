@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/back_icon_button_widget.dart';
-import 'package:ks_mail/src/presentation/state_management/localization.dart';
+import 'package:ks_mail/src/presentation/riverpod/localization.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});

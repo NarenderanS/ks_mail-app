@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
 
-import '../../state_management/mail_list.dart';
+import '../../riverpod/mail_list.dart';
 import '../../../utils/constants/commom_functions.dart';
 import '../../../utils/constants/constant.dart';
 import '../../views/home.dart';

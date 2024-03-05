@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/back_icon_button_widget.dart';
 import 'package:ks_mail/src/presentation/widgets/circular_avatar_widgets/circular_avatar_widget.dart';
 import 'package:ks_mail/src/utils/constants/constant.dart';
-import 'package:ks_mail/src/presentation/state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/user.dart';
 
 import '../widgets/text_field_widgets/password_widget.dart';
 import '../widgets/text_field_widgets/phone_no_widget.dart';

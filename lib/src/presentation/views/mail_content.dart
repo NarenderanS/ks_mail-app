@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/presentation/views/new_mail.dart';
 import 'package:ks_mail/src/presentation/widgets/popup_menu_widget/three_dot_widget.dart';
-import 'package:ks_mail/src/presentation/state_management/mail_list.dart';
-import 'package:ks_mail/src/presentation/state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_list.dart';
+import 'package:ks_mail/src/presentation/riverpod/user.dart';
 
 import '../../domain/entities/mail.dart';
 import '../../domain/entities/new_mail.dart';

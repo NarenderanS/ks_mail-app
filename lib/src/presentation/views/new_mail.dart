@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
-import 'package:ks_mail/src/presentation/state_management/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/user.dart';
 import '../../utils/constants/commom_functions.dart';
 import '../widgets/button_widgets/back_icon_button_widget.dart';
 import '../widgets/button_widgets/send_mail_button_widget.dart';
