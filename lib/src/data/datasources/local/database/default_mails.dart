@@ -12,7 +12,7 @@ List<Mail> mails = [
       cc: [],
       subject: "Welcome email template",
       body:
-          "Hey Kumaran!\n\nWelcome to [brand name]. We are happy to have you join our community.\n\n[Brand name] goal is to create [add goal and/or mission of your brand].\n\nWe promise to only send you emails [add how many times per week you will be sending an email].\n\nAll our emails will offer valuable information to help you along your journey and we may occasionally recommend a product that we believe in.\n\nWe hope you enjoy your time with us and, in the meantime, feel free to check our [educational resources of your brand]\n\nYours,\n[brand name]",
+          "Hey Bala!\n\nWelcome to [brand name]. We are happy to have you join our community.\n\n[Brand name] goal is to create [add goal and/or mission of your brand].\n\nWe promise to only send you emails [add how many times per week you will be sending an email].\n\nAll our emails will offer valuable information to help you along your journey and we may occasionally recommend a product that we believe in.\n\nWe hope you enjoy your time with us and, in the meantime, feel free to check our [educational resources of your brand]\n\nYours,\n[brand name]",
       draft: false,
       readedBy: [],
       starredBy: [1],
@@ -29,7 +29,7 @@ List<Mail> mails = [
       cc: [],
       subject: "About Verification email template",
       body:
-          "Hey Kumaran,\n\nThank you for signing up to my weekly newsletter. Before we get started, you‘ll have to confirm your email address.\n\nClick on the button below to verify your email address and you‘re officially one of us!\n\n[CTA button]",
+          "Hey Bala,\n\nThank you for signing up to my weekly newsletter. Before we get started, you‘ll have to confirm your email address.\n\nClick on the button below to verify your email address and you‘re officially one of us!\n\n[CTA button]",
       draft: false,
       readedBy: [],
       starredBy: [],
@@ -63,7 +63,7 @@ List<Mail> mails = [
       cc: [],
       subject: "Sales email template",
       body:
-          "Hi Kumaran,\n\nI hope this email finds you well. Let me start by saying that I am a big fan of your work and it has inspired me to push myself beyond what I thought were my limits!\n\nI am reaching out because [reason].\n\nAfter taking a good look at [target company] I realize that you could improve in [improvement area]. I have helped many others improve in the same area and I‘d be more than happy to talk with you about it!\n\nWould you be available for a quick call to discuss how our [product/service] could help you?\n\nRegards,\n\n[Name]",
+          "Hi Bala,\n\nI hope this email finds you well. Let me start by saying that I am a big fan of your work and it has inspired me to push myself beyond what I thought were my limits!\n\nI am reaching out because [reason].\n\nAfter taking a good look at [target company] I realize that you could improve in [improvement area]. I have helped many others improve in the same area and I‘d be more than happy to talk with you about it!\n\nWould you be available for a quick call to discuss how our [product/service] could help you?\n\nRegards,\n\n[Name]",
       draft: false,
       readedBy: [],
       starredBy: [],
@@ -98,7 +98,7 @@ List<Mail> mails = [
       cc: [],
       subject: "Shipping confirmation email template",
       body:
-          "Hi Kumaran2,\n\nYour [product name] is on its way!\n\nYou can expect it to arrive at your shipping address within [timeframe].\n\nThe order number is [order number].\n\nTrack your order‘s status here [Insert tracking info].\n\nThank you for shopping with us!",
+          "Hi Saravanan,\n\nYour [product name] is on its way!\n\nYou can expect it to arrive at your shipping address within [timeframe].\n\nThe order number is [order number].\n\nTrack your order‘s status here [Insert tracking info].\n\nThank you for shopping with us!",
       draft: false,
       readedBy: [],
       starredBy: [],
@@ -132,7 +132,7 @@ List<Mail> mails = [
       cc: [],
       subject: "Abandoned cart email template",
       body:
-          "Hey Kumaran2,\n\nGood news! The [product] is still in your cart, patiently waiting to become yours!\n\nMake sure you order before [date] to enjoy a [% discount]\n\nClick on the button below to visit the checkout page.\n\n[CTA to cart]",
+          "Hey Saravanan,\n\nGood news! The [product] is still in your cart, patiently waiting to become yours!\n\nMake sure you order before [date] to enjoy a [% discount]\n\nClick on the button below to visit the checkout page.\n\n[CTA to cart]",
       draft: false,
       readedBy: [],
       starredBy: [1],
@@ -149,7 +149,7 @@ List<Mail> mails = [
       cc: [],
       subject: "Review email template",
       body:
-          "Hi Kumaran,\n\nYou recently purchased [product] from [your company].\n\nWe hope that you are enjoying it as much as we do! In fact, we‘d like your honest opinion!\n\nYour insights could help many other customers decide whether our products are worth buying.\n\nTherefore, if you have 5 minutes to spare, please leave your review on [product/service].\n\n[Link to reviews]\n\nThank you!",
+          "Hi Bala,\n\nYou recently purchased [product] from [your company].\n\nWe hope that you are enjoying it as much as we do! In fact, we‘d like your honest opinion!\n\nYour insights could help many other customers decide whether our products are worth buying.\n\nTherefore, if you have 5 minutes to spare, please leave your review on [product/service].\n\n[Link to reviews]\n\nThank you!",
       draft: false,
       readedBy: [],
       starredBy: [],
@@ -183,7 +183,7 @@ List<Mail> mails = [
       cc: [mapToUserDetails(user[1])],
       subject: "Customer satisfaction email template",
       body:
-          "Hi Kumaran,\n\nThanks for choosing us! We are always looking to improve our [products/services].\n\nFor this reason, we‘d like to ask you a question:\n\nWhat do you think we could do to improve our services?\n\nHit that reply button and let us know!\n\nRegards,\n\n[Company‘s name]",
+          "Hi Bala,\n\nThanks for choosing us! We are always looking to improve our [products/services].\n\nFor this reason, we‘d like to ask you a question:\n\nWhat do you think we could do to improve our services?\n\nHit that reply button and let us know!\n\nRegards,\n\n[Company‘s name]",
       draft: false,
       readedBy: [],
       starredBy: [2],
@@ -200,7 +200,7 @@ List<Mail> mails = [
       cc: [mapToUserDetails(user[2])],
       subject: "Customer satisfaction email template",
       body:
-          "Hi Kumaran,\n\nThanks for choosing us! We are always looking to improve our [products/services].\n\nFor this reason, we‘d like to ask you a question:\n\nWhat do you think we could do to improve our services?\n\nHit that reply button and let us know!\n\nRegards,\n\n[Company‘s name]",
+          "Hi Mani,\n\nThanks for choosing us! We are always looking to improve our [products/services].\n\nFor this reason, we‘d like to ask you a question:\n\nWhat do you think we could do to improve our services?\n\nHit that reply button and let us know!\n\nRegards,\n\n[Company‘s name]",
       draft: true,
       readedBy: [],
       starredBy: [],
