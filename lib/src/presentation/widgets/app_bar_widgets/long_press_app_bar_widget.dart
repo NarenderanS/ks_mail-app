@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/back_icon_button_widget.dart';
-import 'package:ks_mail/src/utils/constants/constant.dart';
 import 'package:ks_mail/src/utils/constants/icons.dart';
+
+import '../../../utils/constants/variables.dart';
 
 class LongpressAppBarWidget extends StatelessWidget {
   const LongpressAppBarWidget({super.key});

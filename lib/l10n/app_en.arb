@@ -29,5 +29,6 @@
 "body_hint":"Compose mail",
 "empty_body_alert":"Add at least one recipient",
 "ok":"Ok",
-"invalid_credentials":"Invalid Credentials"
+"invalid_credentials":"Invalid Credentials",
+"change_lang":"Change Language"
 }

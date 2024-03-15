@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ks_mail/src/presentation/views/home.dart';
-import 'package:ks_mail/src/utils/constants/constant.dart';
+import 'package:ks_mail/src/data/datasources/local/database/db_helper.dart';
+import 'package:ks_mail/src/utils/constants/styles.dart';
 import 'package:ks_mail/src/presentation/views/login.dart';
 import 'package:ks_mail/src/presentation/views/register.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/rounded_button_widget.dart';
@@ -12,6 +12,23 @@ import 'src/config/router/app_routes.dart';
 import 'src/config/themes/app_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  DBHelper dbConnection = DBHelper();
+  dbConnection.database;
+
+  // dbConnection.showTables();
+
+  // user Table
+  // DBHelper.deleteAllUserRows();
+
+  // mail,recipient and status Table
+  // DBHelper.deleteAllMailRows();
+
+  // delete the tables
+  // DBHelper.deleteTables();
+
+  // delete database
+  // DBHelper.deleteDatabase();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -23,13 +40,13 @@ class MyApp extends ConsumerWidget {
     return SafeArea(
       child: MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        locale: Locale(ref.read(localizationProvider.notifier).getLanguage()),
+        locale: Locale(ref.watch(localizationProvider)),
         supportedLocales: AppLocalizations.supportedLocales,
         title: 'KS Mail',
         theme: appThemeData(),
-        home: HomePage(),
+        home: const WelcomePage(),
         routes: appRoutes,
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
 
-import '../../riverpod/mail_list.dart';
 import '../../../utils/constants/commom_functions.dart';
 
 class ThreeDotPopUpMenuButtonWidget extends ConsumerWidget {
@@ -20,16 +20,16 @@ class ThreeDotPopUpMenuButtonWidget extends ConsumerWidget {
                     enabled: true,
                     onTap: () =>
                         moveFromBin(context: context, ref: ref, mailId: id),
-                    child: Text("Move to")),
+                    child: const Text("Move to")),
               PopupMenuItem(
                   enabled: true,
                   onTap: () {
-                    ref.read(mailListProvider.notifier).deleteMail(id);
-                    snakeBar(
+                    ref.read(mailListNotifierProvider.notifier).deleteMail(id);
+                    snackBar(
                         context: context, text: "Mail deleted permanently");
                     Navigator.pop(context);
                   },
-                  child: Text("Delete Permanently")),
+                  child: const Text("Delete Permanently")),
             ]);
   }
 }

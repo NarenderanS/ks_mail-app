@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ks_mail/src/utils/constants/constant.dart';
+import 'package:ks_mail/src/utils/constants/styles.dart';
 
 class Button extends StatelessWidget {
   const Button(

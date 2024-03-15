@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ks_mail/src/utils/constants/icons.dart';
-import '../../../utils/constants/constant.dart';
-import '../../../utils/text_field_controllers.dart';
+import '../../../utils/constants/styles.dart';
 
 class PasswordWidget extends StatefulWidget {
-  const PasswordWidget({
-    super.key,
-    required this.toggleText,
-  });
+  const PasswordWidget(
+      {super.key,
+      required this.toggleText,
+      required this.passwordController,
+      this.cPasswordController});
   final String toggleText;
+  final TextEditingController passwordController;
+  final TextEditingController? cPasswordController;
 
   @override
   State<PasswordWidget> createState() => _PasswordWidgetState();
@@ -27,29 +29,29 @@ class _PasswordWidgetState extends State<PasswordWidget> {
         widget.toggleText == AppLocalizations.of(context)!.password;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: TextFormField(
-        controller:
-            isPasswordController ? passwordController : cPasswordController,
-        cursorColor: Colors.lightBlueAccent,
-        obscureText: _show,
-        keyboardType: TextInputType.visiblePassword,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (value) => isPasswordController
-            ? passwordValidation(value)
-            : confirmPasswordValidation(value),
-        decoration: textFieldDecoration(
-                isPasswordController
-                    ? AppLocalizations.of(context)!.password
-                    : AppLocalizations.of(context)!.c_password,
-                passwordIcon)
-            .copyWith(
-          suffixIcon: IconButton(
-              icon: Icon(_show ? Icons.visibility : Icons.visibility_off),
-              onPressed: () => showPassword()),
-        ),
-      ),
-    );
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: TextFormField(
+          controller: isPasswordController
+              ? widget.passwordController
+              : widget.cPasswordController,
+          cursorColor: Colors.lightBlueAccent,
+          obscureText: _show,
+          keyboardType: TextInputType.visiblePassword,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => isPasswordController
+              ? passwordValidation(value)
+              : confirmPasswordValidation(value),
+          decoration: textFieldDecoration(
+                  isPasswordController
+                      ? AppLocalizations.of(context)!.password
+                      : AppLocalizations.of(context)!.c_password,
+                  passwordIcon)
+              .copyWith(
+            suffixIcon: IconButton(
+                icon: Icon(_show ? Icons.visibility : Icons.visibility_off),
+                onPressed: () => showPassword()),
+          ),
+        ));
   }
 
   bool _isValidPassword(String password) {
@@ -73,7 +75,7 @@ class _PasswordWidgetState extends State<PasswordWidget> {
   confirmPasswordValidation(String? value) {
     if (value!.isEmpty) {
       return 'Please enter a password';
-    } else if (value != passwordController.text) {
+    } else if (value != widget.passwordController.text) {
       return 'Passwords do not match';
     }
     return null;

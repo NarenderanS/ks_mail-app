@@ -1,116 +1,135 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ks_mail/src/presentation/riverpod/user_provider.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/back_icon_button_widget.dart';
 import 'package:ks_mail/src/presentation/widgets/circular_avatar_widgets/circular_avatar_widget.dart';
-import 'package:ks_mail/src/utils/constants/constant.dart';
-import 'package:ks_mail/src/presentation/riverpod/user.dart';
+import 'package:ks_mail/src/utils/constants/icons.dart';
+import 'package:ks_mail/src/utils/constants/styles.dart';
 
+import '../../utils/constants/variables.dart';
 import '../widgets/text_field_widgets/password_widget.dart';
 import '../widgets/text_field_widgets/phone_no_widget.dart';
 import '../widgets/text_field_widgets/username_widget.dart';
 import '../widgets/text_widgets/display_text_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
   static String id = "profile";
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController phoneNoController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController cPasswordController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: const BackIconButtonWidget(),
+        title: const Text('Profile'),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
+      body: ListView(
         padding: safePadding,
-        child: ListView(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 10.0, left: 10),
-              child: Text(
-                "Profile",
-                style: TextStyle(
-                    color: Color.fromARGB(255, 33, 3, 3),
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25),
-              ),
+        children: [
+          ListTile(
+              trailing: IconButton(
+                  onPressed: () {
+                    usernameController.text = currentUser!.username;
+                    phoneNoController.text = currentUser!.phoneNo;
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return EdtProfileWidget(
+                              usernameController: usernameController,
+                              phoneNoController: phoneNoController);
+                        });
+                  },
+                  icon: editIcon)),
+          ListTile(
+            title: CircularAvatarWidget(
+              text: currentUser!.username[0],
+              radius: 50,
+              textSize: 40,
             ),
-            Column(
-              // runAlignment: WrapAlignment.center,
-              // alignment: WrapAlignment.spaceAround,
-              // runSpacing: 30,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircularAvatarWidget(
-                  text: currentUser!.username[0],
-                  radius: 60,
-                  textSize: 60,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Wrap(
-                  runSpacing: 10,
-                  alignment: WrapAlignment.start,
-                  children: [
-                    DisplayTextWidget(
-                      defaultText: "Username: ",
-                      text: currentUser!.username,
-                    ),
-                    DisplayTextWidget(
-                      defaultText: "Mail: ",
-                      text: currentUser!.mail,
-                    ),
-                    DisplayTextWidget(
-                      defaultText: "PhoneNo: ",
-                      text: currentUser!.phoneNo,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+          DisplayTextWidget(
+            defaultText: "Username: ",
+            text: currentUser!.username,
+          ),
+          DisplayTextWidget(
+            defaultText: "Mail: ",
+            text: currentUser!.mail,
+          ),
+          DisplayTextWidget(
+            defaultText: "PhoneNo: ",
+            text: currentUser!.phoneNo,
+          ),
+        ],
       ),
     );
   }
+}
 
-  Future<dynamic> updateProfile(BuildContext context, String text) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Color.fromARGB(255, 219, 234, 240),
-            content: Wrap(
-              children: [
-                Text(
-                  "Update $text",
-                  style: textStyle,
-                ),
-                Form(
-                  child: Wrap(alignment: WrapAlignment.center, children: [
-                    const UsernameWidget(),
-                    const PhoneNoWidget(),
-                    PasswordWidget(
-                        toggleText: AppLocalizations.of(context)!.password),
-                    PasswordWidget(
-                      toggleText: AppLocalizations.of(context)!.c_password,
-                    )
-                  ]),
-                ),
-              ],
-            ),
-          );
-        });
+class EdtProfileWidget extends ConsumerWidget {
+  const EdtProfileWidget({
+    super.key,
+    required this.usernameController,
+    required this.phoneNoController,
+  });
+
+  final TextEditingController usernameController;
+  final TextEditingController phoneNoController;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
+      title: const Text(
+        "Edit Profile",
+        style: TextStyle(fontSize: 20),
+      ),
+      content: Wrap(
+        children: [
+          Form(
+            child: Wrap(alignment: WrapAlignment.center, children: [
+              UsernameWidget(
+                usernameController: usernameController,
+              ),
+              PhoneNoWidget(phoneNoController: phoneNoController),
+              // PasswordWidget(
+              //     toggleText: AppLocalizations.of(context)!.password,
+              //     passwordController: passwordController),
+              // PasswordWidget(
+              //     toggleText: AppLocalizations.of(context)!.c_password,
+              //     passwordController: cPasswordController)
+              OutlinedButton(
+                onPressed: () async {
+                  await ref.read(userListNotifierProvider.notifier).updateUser(
+                      username: usernameController.text,
+                      phoneNo: phoneNoController.text);
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
+                },
+                style: buttonStyle,
+                child: const Text('Update'),
+              )
+            ]),
+          ),
+        ],
+      ),
+    );
   }
 }
-// Align(
-//                     alignment: Alignment.centerRight,
-//                     child: Icon(
-//                       Icons.edit_outlined,
-//                       color: Color.fromARGB(255, 33, 3, 3),
-//                       size: 30,
-//                     ),
-//                   ),

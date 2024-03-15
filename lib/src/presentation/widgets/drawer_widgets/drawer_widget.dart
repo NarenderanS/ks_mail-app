@@ -5,15 +5,14 @@ import 'package:ks_mail/src/presentation/views/settings.dart';
 import 'package:ks_mail/src/presentation/widgets/drawer_widgets/drawer_body_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
-import 'package:ks_mail/src/presentation/riverpod/user.dart';
+
 
 import '../../../utils/constants/commom_functions.dart';
+import '../../../utils/constants/variables.dart';
 import '../../views/login.dart';
 
 class DrawerWidget extends ConsumerWidget {
-  DrawerWidget({
-    super.key,
-  });
+  DrawerWidget({super.key});
   late int selected;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -94,11 +93,11 @@ class DrawerWidget extends ConsumerWidget {
               text: AppLocalizations.of(context)!.signout,
               icon: Icons.logout_outlined,
               onTap: () {
-                snakeBar(
+                snackBar(
                     context: context,
                     text: "Logout Successfully",
                     color: Colors.green);
-                    ref.read(navigatorProvider.notifier).updateCategory(0);
+                ref.read(navigatorProvider.notifier).updateCategory(0);
                 Navigator.pushNamedAndRemoveUntil(
                     context, LoginPage.id, (route) => false);
               }),

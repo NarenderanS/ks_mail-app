@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ks_mail/src/utils/constants/icons.dart';
-import '../../../utils/constants/constant.dart';
-import '../../../utils/text_field_controllers.dart';
+import '../../../utils/constants/styles.dart';
 
 class UsernameWidget extends StatelessWidget {
   const UsernameWidget({
-    super.key,
+    super.key,required this.usernameController
   });
+  final TextEditingController usernameController;
 
   @override
   Widget build(BuildContext context) {

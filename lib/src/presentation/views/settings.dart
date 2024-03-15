@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/presentation/widgets/button_widgets/back_icon_button_widget.dart';
 import 'package:ks_mail/src/presentation/riverpod/localization.dart';
+import 'package:ks_mail/src/utils/constants/icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});
@@ -9,25 +11,35 @@ class Settings extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool selected = ref.watch(localizationProvider) == 'en';
     return Scaffold(
       appBar: AppBar(leading: const BackIconButtonWidget()),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
-          const Text('Change Language'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              AppLocalizations.of(context)!.change_lang,
+              style: const TextStyle(fontSize: 20),
+            ),
+          ),
           GestureDetector(
             onTap: () {
-              print("a");
               ref.read(localizationProvider.notifier).setLanguage("en");
             },
-            child: const Text("English"),
+            child: ListTile(
+              title: const Text("English"),
+              trailing: selected ? selectedIcon : null,
+            ),
           ),
           GestureDetector(
             onTap: () {
               ref.read(localizationProvider.notifier).setLanguage("de");
             },
-            child: const Text("German"),
+            child: ListTile(
+              title: const Text("German"),
+              trailing: !selected ? selectedIcon : null,
+            ),
           )
         ],
       ),

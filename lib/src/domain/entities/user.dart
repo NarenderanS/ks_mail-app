@@ -1,37 +1,52 @@
 class User {
-  final int id;
-  final String username;
-  final String mail;
-  final String phoneNo;
-  final String password;
-  List<String> knownMails;
+  int? id;
+  String username;
+  String mail;
+  String phoneNo;
+  String password;
   final String createdAt;
   String? image;
 
   User(
-      {required this.id,
+      {this.id,
       required this.username,
       required this.mail,
       required this.phoneNo,
       required this.password,
-      required this.knownMails,
       required this.createdAt});
   User updateUser(
-      {String? usernameContent,
+      {int? idValue,
+      String? usernameContent,
       String? phoneNoContent,
       String? passwordContent}) {
     return User(
-        id: id,
+        id: idValue ?? id,
         username: usernameContent ?? username,
         mail: mail,
         phoneNo: phoneNoContent ?? phoneNo,
         password: passwordContent ?? password,
-        knownMails: knownMails,
         createdAt: createdAt);
   }
 
-  @override
-  String toString() {
-    return "User: {id:$id,mail:$mail,phoneNo:$phoneNo,password:$password,knowmails:$knownMails}";
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'username': username,
+      'mail': mail,
+      'phoneNo': phoneNo,
+      'password': password,
+      'createdAt': createdAt
+    };
   }
+}
+
+User userFromMap(Map<String, dynamic> user) {
+  return User(
+    id: user["id"],
+    username: user["username"],
+    mail: user["mail"],
+    phoneNo: user["phoneNo"].toString(),
+    password: user["password"],
+    createdAt: user["createdAt"],
+  );
 }

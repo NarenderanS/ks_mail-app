@@ -29,5 +29,6 @@
 "body_hint":"Mail schreiben",
 "empty_body_alert":"Fügen Sie mindestens einen Empfänger hinzu",
 "ok":"OK",
-"invalid_credentials":"Ungültige Anmeldeinformationen"
+"invalid_credentials":"Ungültige Anmeldeinformationen",
+"change_lang":"Sprache ändern"
 }

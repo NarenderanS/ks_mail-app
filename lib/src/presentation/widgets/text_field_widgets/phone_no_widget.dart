@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ks_mail/src/utils/constants/icons.dart';
-import '../../../utils/constants/constant.dart';
-import '../../../utils/text_field_controllers.dart';
+import '../../../utils/constants/styles.dart';
 
 class PhoneNoWidget extends StatelessWidget {
   const PhoneNoWidget({
     super.key,
+    required this.phoneNoController,
   });
+  final TextEditingController phoneNoController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +27,8 @@ class PhoneNoWidget extends StatelessWidget {
           }
           return null;
         },
-        decoration: textFieldDecoration(AppLocalizations.of(context)!.phoneNo,
-            phoneIcon),
+        decoration: textFieldDecoration(
+            AppLocalizations.of(context)!.phoneNo, phoneIcon),
       ),
     );
   }

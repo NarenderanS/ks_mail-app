@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ks_mail/src/utils/constants/icons.dart';
-import '../../../utils/constants/constant.dart';
-import '../../../utils/text_field_controllers.dart';
+import '../../../utils/constants/styles.dart';
 
-class EmailWidget extends StatelessWidget {
-  const EmailWidget({
-    super.key,
+class MailWidget extends StatelessWidget {
+  const MailWidget({
+    super.key, required this.mailController,
   });
-
+final TextEditingController mailController;
   @override
   Widget build(BuildContext context) {
     return Padding(

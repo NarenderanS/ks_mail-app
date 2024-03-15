@@ -5,28 +5,25 @@ class UserDetails {
   final String username;
   final String mail;
   final String phoneNo;
-  List<String> knownMails;
   final String createdAt;
   UserDetails(
       {required this.id,
       required this.username,
       required this.mail,
       required this.phoneNo,
-      required this.knownMails,
       required this.createdAt});
   @override
   String toString() {
-    return "UserDetails: {id:$id,mail:$mail,phoneNo:$phoneNo,knowMails:$knownMails}";
+    return "UserDetails: {id:$id,mail:$mail,phoneNo:$phoneNo,createdAt:$createdAt}\n";
   }
 }
 
 UserDetails mapToUserDetails(User user) {
   return UserDetails(
-      id: user.id,
+      id: user.id!,
       username: user.username,
       mail: user.mail,
       phoneNo: user.phoneNo,
-      knownMails: user.knownMails,
       createdAt: user.createdAt);
 }
 
@@ -36,6 +33,4 @@ List<UserDetails> mapToUserDetailsList(List<User> usersList) {
     users.add(mapToUserDetails(user));
   }
   return users;
-
-  // return usersList.map((user) => mapToUserDetails(user)).toList();
 }

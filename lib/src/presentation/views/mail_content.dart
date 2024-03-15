@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
 import 'package:ks_mail/src/presentation/views/new_mail.dart';
 import 'package:ks_mail/src/presentation/widgets/popup_menu_widget/three_dot_widget.dart';
-import 'package:ks_mail/src/presentation/riverpod/mail_list.dart';
-import 'package:ks_mail/src/presentation/riverpod/user.dart';
+import 'package:ks_mail/src/utils/constants/variables.dart';
 
 import '../../domain/entities/mail.dart';
 import '../../domain/entities/new_mail.dart';
 import '../../utils/constants/commom_functions.dart';
-import '../../utils/constants/constant.dart';
+import '../../utils/constants/styles.dart';
 import '../widgets/button_widgets/back_icon_button_widget.dart';
 import '../widgets/button_widgets/starred_icon_button.dart';
 import '../widgets/circular_avatar_widgets/circular_avatar_widget.dart';
@@ -25,8 +25,6 @@ class MailContentPage extends ConsumerStatefulWidget {
 
 class _MailContentPageState extends ConsumerState<MailContentPage> {
   late Mail mail;
-  // int mailId = 11;
-  // Mail mail = mails[10];
   bool _showbody = true;
   bool _showCard = false;
   void showBodyContent() => setState(() => _showbody = !_showbody);
@@ -37,7 +35,8 @@ class _MailContentPageState extends ConsumerState<MailContentPage> {
   Widget build(BuildContext context) {
     NewMail arg = ModalRoute.of(context)!.settings.arguments as NewMail;
     int mailId = arg.mailId;
-    mail = ref.watch(mailListProvider)[mailId - 1];
+    mail =  ref.watch(mailListNotifierProvider)[mailId - 1];
+    print(mailId);
     String addresses = getData(
         page: arg.page,
         from: mail.from.mail,
@@ -81,9 +80,10 @@ class _MailContentPageState extends ConsumerState<MailContentPage> {
                           height: 1,
                           letterSpacing: 0.2),
                     )),
+                    
                     StarredIconButtonWidget(
                         isStarred: mail.starredBy.contains(currentUser!.id),
-                        id: mail.id),
+                        id: mail.id!),
                   ],
                 ),
               ),
@@ -180,9 +180,8 @@ class _MailContentPageState extends ConsumerState<MailContentPage> {
                       child: Row(
                         children: [
                           // Edit Button
-                          Visibility(
-                            visible: _showbody && mail.draft,
-                            child: IconButton(
+                          if (arg.page == 3)
+                            IconButton(
                               icon: const Icon(Icons.edit_outlined),
                               onPressed: () {
                                 Navigator.push(
@@ -198,7 +197,6 @@ class _MailContentPageState extends ConsumerState<MailContentPage> {
                                             )));
                               },
                             ),
-                          ),
                           // More actions
                           IconButton(
                               onPressed: () {},

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ks_mail/src/domain/entities/mail.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
-import 'package:ks_mail/src/utils/constants/constant.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
+import 'package:ks_mail/src/utils/constants/styles.dart';
 
-import '../../presentation/riverpod/mail_list.dart';
-import '../../presentation/riverpod/user.dart';
+import '../../domain/entities/home_page.dart';
 import '../../domain/entities/new_mail.dart';
 import '../../presentation/views/mail_content.dart';
+import 'variables.dart';
 
+// Used to check the provided usersList contains currentUser or not.
+// inbuild contains method had not given expected result.
 bool isContainsCurrentUser(List<UserDetails> userslist) {
   for (UserDetails user in userslist) {
     if (user.id == currentUser!.id) {
@@ -18,6 +22,8 @@ bool isContainsCurrentUser(List<UserDetails> userslist) {
   return false;
 }
 
+// Used to check whether the provided userList contains user mailId or not.
+// Used in new mail to identify the provided mail has match in userlist or not.
 bool isContainsMail(List<UserDetails> userslist, mailId) {
   for (UserDetails user in userslist) {
     if (user.mail == mailId) {
@@ -35,17 +41,119 @@ void unfocus(BuildContext context) {
   }
 }
 
+// To get home page data and title text
+getHomePageData(
+    {required WidgetRef ref,
+    required BuildContext context,
+    required int page}) {
+  List<Mail> mailList = [];
+  switch (page) {
+    case 0: //inbox
+      mailList = ref
+          .watch(mailListNotifierProvider)
+          .where((mail) =>
+              (isContainsCurrentUser(mail.to) ||
+                  isContainsCurrentUser(mail.cc) ||
+                  isContainsCurrentUser(mail.bcc)) &&
+              !mail.deletedBy.contains(currentUser!.id) &&
+              mail.draft != true &&
+              !mail.completelyDeleted.contains(currentUser!.id))
+          .toList()
+          .reversed
+          .toList();
+
+      return PageData(
+          titleText: AppLocalizations.of(context)!.inbox, mailList: mailList);
+    case 1: //starred
+      mailList = ref
+          .watch(mailListNotifierProvider)
+          .where((mail) =>
+              mail.starredBy.contains(currentUser!.id) &&
+              !mail.deletedBy.contains(currentUser!.id) &&
+              !mail.completelyDeleted.contains(currentUser!.id))
+          .toList()
+          .reversed
+          .toList();
+      return PageData(
+          titleText: AppLocalizations.of(context)!.starred, mailList: mailList);
+
+    case 2: //sent
+      mailList = ref
+          .watch(mailListNotifierProvider)
+          .where((mail) =>
+              mail.from.id == currentUser!.id &&
+              !mail.deletedBy.contains(currentUser!.id) &&
+              !mail.completelyDeleted.contains(currentUser!.id) &&
+              mail.draft == false)
+          .toList()
+          .reversed
+          .toList();
+      return PageData(
+          titleText: AppLocalizations.of(context)!.sent, mailList: mailList);
+
+    case 3: // draft
+      mailList = ref
+          .watch(mailListNotifierProvider)
+          .where((mail) =>
+              mail.from.id == currentUser!.id &&
+              mail.draft == true &&
+              mail.completelyDeleted.isEmpty &&
+              mail.deletedBy.isEmpty)
+          .toList()
+          .reversed
+          .toList();
+      return PageData(
+          titleText: AppLocalizations.of(context)!.draft, mailList: mailList);
+
+    case 4: //bin
+      mailList = ref
+          .watch(mailListNotifierProvider)
+          .where((mail) =>
+              mail.deletedBy.contains(currentUser!.id) &&
+              !mail.completelyDeleted.contains(currentUser!.id))
+          .toList()
+          .reversed
+          .toList();
+      return PageData(
+          titleText: AppLocalizations.of(context)!.bin, mailList: mailList);
+  }
+}
+
 // To show bottom popup messages
-void snakeBar(
+void snackBar(
     {required BuildContext context, Color? color, required String text}) {
   final scaffoldContext = ScaffoldMessenger.of(context);
   scaffoldContext.showSnackBar(
     SnackBar(
       backgroundColor: color ?? Colors.red,
       content: Text(text),
+      duration: const Duration(seconds: 2),
     ),
   );
 }
+
+// // To show bottom popup messages with undo option
+// void snackBarWithUndo(
+//     {required BuildContext context,
+//     Color? color,
+//     required String text,
+//     required WidgetRef ref,
+//     required int mailId}) {
+//   final scaffoldContext = ScaffoldMessenger.of(context);
+//   scaffoldContext.showSnackBar(
+//     SnackBar(
+//       backgroundColor: color ?? Colors.red,
+//       content: Text(text),
+//       duration: const Duration(seconds: 2),
+//       action: SnackBarAction(
+//           label: 'Undo',
+//           onPressed: () {
+//             moveFromBin(
+//                 context: context, ref: ref, mailId: mailId, back: false);
+//           }),
+//     ),
+//   );
+// }
 
 // Move to bin or delete permanently based on delete number.
 deleteMail(
@@ -53,13 +161,16 @@ deleteMail(
     required WidgetRef ref,
     required int mailId,
     int? delete,
-    bool? swipe = false}) {
+    bool? swipe = false}) async {
   if (delete == 4) {
-    ref.read(mailListProvider.notifier).deleteMail(mailId);
-    snakeBar(context: context, text: "Mail deleted permanently");
+    ref.read(mailListNotifierProvider.notifier).deleteMail(mailId);
+    snackBar(
+      context: context,
+      text: "Mail deleted permanently",
+    );
   } else {
-    ref.read(mailListProvider.notifier).moveToBin(mailId);
-    snakeBar(context: context, text: "Mail moved to bin");
+    ref.read(mailListNotifierProvider.notifier).moveToBin(mailId);
+    snackBar(context: context, text: "Mail moved to bin");
   }
   if (!swipe!) {
     Navigator.pop(context);
@@ -67,16 +178,17 @@ deleteMail(
 }
 
 // Move from bin to original place
-moveFromBin(
+Future<void> moveFromBin(
     {required BuildContext context,
     required WidgetRef ref,
-    required int mailId}) {
-  ref.read(mailListProvider.notifier).moveFromBin(mailId);
-  snakeBar(
+    required int mailId,
+    bool? back = true}) async {
+  ref.read(mailListNotifierProvider.notifier).moveFromBin(mailId);
+  snackBar(
       context: context,
       text: "Mail moved back to original place",
       color: Colors.green);
-  Navigator.pop(context);
+  if (back!) Navigator.pop(context);
 }
 
 // This is used in home page to mark mail as readed.
@@ -85,17 +197,20 @@ boldToNormalText(
     required WidgetRef ref,
     required int mailId,
     required int page}) {
-  ref.read(mailListProvider.notifier).upadateReadedMail(mailId);
+  if (page != 3) {
+    ref.read(mailListNotifierProvider.notifier).updateReadedMail(mailId);
+  }
   Navigator.pushNamed(context, MailContentPage.id,
       arguments: NewMail(mailId, page));
 }
 
 // This is used in mail_content appBar to mark mail as unreaded.
-normalToBoldText(
-    {required BuildContext context,
-    required WidgetRef ref,
-    required int mailId}) {
-  ref.read(mailListProvider.notifier).undoReadedMail(mailId);
+normalToBoldText({
+  required BuildContext context,
+  required WidgetRef ref,
+  required int mailId,
+}) {
+  ref.read(mailListNotifierProvider.notifier).undoReadedMail(mailId);
   Navigator.pop(context);
 }
 
@@ -172,18 +287,35 @@ Future<dynamic> alertDialogBox(
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+// getHomeData(
+//     {required WidgetRef ref,
+//     required BuildContext context,
+//     required int page}) {
+//   List<Mail> mailList;
+//   switch (page) {
+//     case 0: //inbox
+//       mailList = ref.watch(mailListNotifierProvider.notifier).getUserMails();
+//       return PageData(
+//           titleText: AppLocalizations.of(context)!.inbox, mailList: mailList);
+//     case 1: //starred
+//       mailList = ref.watch(mailListNotifierProvider.notifier).getStarredMails();
+//       return PageData(
+//           titleText: AppLocalizations.of(context)!.starred, mailList: mailList);
+//     case 2: //sent
+//       mailList =
+//           ref.watch(mailListNotifierProvider.notifier).getUserSentMails();
+//       return PageData(
+//           titleText: AppLocalizations.of(context)!.sent, mailList: mailList);
+//     case 3: // draft
+//       mailList = ref.watch(mailListNotifierProvider.notifier).getUserDraft();
+//       return PageData(
+//           titleText: AppLocalizations.of(context)!.draft, mailList: mailList);
+//     case 4: //bin
+//       mailList = ref.watch(mailListNotifierProvider.notifier).getUserBinMails();
+//       return PageData(
+//           titleText: AppLocalizations.of(context)!.bin, mailList: mailList);
+//   }
+// }
 
 
 
@@ -229,8 +361,6 @@ Future<dynamic> alertDialogBox(
                   //       }
                   //     });
                   //     print(toList);
-                    
                   //   },
-                    
                   //   // child: TextFormField(),
                   // );

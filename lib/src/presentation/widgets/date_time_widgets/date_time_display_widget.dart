@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants/constant.dart';
+import '../../../utils/constants/styles.dart';
 import '../../../utils/date_time.dart';
 
 class DateTimeDisplayWidget extends StatelessWidget {

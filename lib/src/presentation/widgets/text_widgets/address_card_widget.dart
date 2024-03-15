@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ks_mail/src/utils/date_time.dart';
 
-import '../../../utils/constants/constant.dart';
+import '../../../utils/constants/styles.dart';
 
 class AddressCardWidget extends StatelessWidget {
   const AddressCardWidget(
@@ -24,21 +24,21 @@ class AddressCardWidget extends StatelessWidget {
       columnWidths: const {0: FixedColumnWidth(50)},
       children: [
         TableRow(
-          children: [Text("From"), Text(fromAddress)],
+          children: [const Text("From"), Text(fromAddress)],
         ),
         rowSpacer,
         TableRow(
-          children: [Text("To"), Text(toAddress)],
+          children: [const Text("To"), Text(toAddress)],
         ),
         rowSpacer,
         if (ccAddress.isNotEmpty)
-          TableRow(children: [Text("Cc"), Text(ccAddress)]),
+          TableRow(children: [const Text("Cc"), Text(ccAddress)]),
         if (ccAddress.isNotEmpty) rowSpacer,
         if (bccAddress.isNotEmpty)
-          TableRow(children: [Text("Bcc"), Text(bccAddress)]),
+          TableRow(children: [const Text("Bcc"), Text(bccAddress)]),
         if (bccAddress.isNotEmpty) rowSpacer,
         TableRow(children: [
-          Text("Date"),
+          const Text("Date"),
           Text(DateTimeFormat().getDisplayDateAndTime(dateAndTime))
         ]),
       ],

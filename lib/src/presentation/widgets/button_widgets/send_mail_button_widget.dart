@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
 
-import '../../riverpod/mail_list.dart';
 import '../../../utils/constants/commom_functions.dart';
-import '../../../utils/constants/constant.dart';
+import '../../../utils/constants/styles.dart';
 import '../../views/home.dart';
 
 class SendMailButtonWidget extends StatelessWidget {
@@ -36,14 +36,14 @@ class SendMailButtonWidget extends StatelessWidget {
           if ((toList.isNotEmpty || ccList.isNotEmpty || bccList.isNotEmpty) &&
               (bodyController.text.isNotEmpty &&
                   subjectController.text.isNotEmpty)) {
-            ref.read(mailListProvider.notifier).addMail(
+            ref.read(mailListNotifierProvider.notifier).addMail(
                 id: idValue,
                 toData: toList,
                 subjectData: subjectController.text,
                 bodyData: bodyController.text,
                 bccData: bccList,
                 ccData: ccList);
-            snakeBar(
+            snackBar(
                 context: context,
                 text: "Mail Sent Successfully",
                 color: Colors.green);
@@ -134,7 +134,7 @@ Future<dynamic> alertConfirmationSentMailDialogBox({
               style: buttonStyle,
               child: Text(confirmText),
               onPressed: () {
-                ref.read(mailListProvider.notifier).addMail(
+                ref.read(mailListNotifierProvider.notifier).addMail(
                     id: idValue,
                     toData: toList,
                     subjectData: subjectData,

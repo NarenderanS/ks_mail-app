@@ -1,14 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// @immutable
-// class Localization {
-//   final String? currentLanguage;
-//   const Localization({this.currentLanguage});
-// }
-
 class LocalizationNotifier extends StateNotifier<String> {
-  LocalizationNotifier(super.state);
+  LocalizationNotifier() : super("en");
   String getLanguage() {
     return state;
   }
@@ -20,4 +14,5 @@ class LocalizationNotifier extends StateNotifier<String> {
 }
 
 final localizationProvider =
-    StateNotifierProvider((ref) => LocalizationNotifier("en"));
+    StateNotifierProvider<LocalizationNotifier, String>(
+        (ref) => LocalizationNotifier());

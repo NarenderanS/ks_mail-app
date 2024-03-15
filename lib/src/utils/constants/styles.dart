@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:ks_mail/src/utils/constants/colors.dart';
 
-const linearGradient = LinearGradient(colors: [
-  Color.fromARGB(255, 77, 198, 151),
-  Color.fromRGBO(2, 170, 189, 1)
-]);
-const green = Color.fromRGBO(32, 201, 150, 1);
-const green400 = Color.fromRGBO(74, 222, 128, 1);
-const green500 = Color.fromRGBO(34, 197, 94, 1);
-const green700 = Color.fromRGBO(7, 179, 99, 1);
-const dullBlue = Color.fromARGB(255, 224, 236, 247);
-const blue100 = Color.fromARGB(255, 187, 222, 251);
-const blue200 = Color.fromARGB(255, 144, 202, 249);
-const blue300 = Color.fromARGB(255, 100, 181, 246);
-
-const logo = Image(
-    image: AssetImage(
-  "assets/images/MailAppLogo.jpg",
-));
+// Used in WelcomePage
 const welcomeMessage = Text(
   "Welcome to KS Mail",
   style: textStyle,
   textAlign: TextAlign.center,
 );
+
+// Spacing
+
+// Used in WlecomePage,Login,Profile,Register for margin
 const safePadding = EdgeInsets.all(30);
-const textWhite = TextStyle(color: Colors.white);
+// Used in Welcome Page
+const verticalSpace30px = SizedBox(
+  height: 30,
+);
+// Used in text widget- address card widget.
+const rowSpacer = TableRow(children: [
+  SizedBox(
+    height: 4,
+  ),
+  SizedBox(
+    height: 4,
+  )
+]);
+
+
+// For Text fields
 const requiredField = Padding(
   padding: EdgeInsets.only(top: 10),
   child: Text(
@@ -32,9 +36,21 @@ const requiredField = Padding(
     textAlign: TextAlign.center,
   ),
 );
-const verticalSpace30px = SizedBox(
-  height: 30,
-);
+// Used in text field widgets-emaiil,password,phoneNo and username widget to customs the form field.
+InputDecoration textFieldDecoration(String text, Icon? icon) {
+  return InputDecoration(
+    labelText: " *$text",
+    // suffixIcon: requiredField,
+    prefixIcon: icon,
+    focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.lightBlueAccent),
+        borderRadius: BorderRadius.circular(30)),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(30),
+    ),
+  );
+}
+
 const drawerTheme = DrawerThemeData(backgroundColor: dullBlue);
 const dialogTheme = DialogTheme(
     backgroundColor: Colors.white,
@@ -42,6 +58,8 @@ const dialogTheme = DialogTheme(
 const floatingActionButtonTheme = FloatingActionButtonThemeData(
   backgroundColor: blue100,
 );
+// Text Styling
+const textWhite = TextStyle(color: Colors.white);
 const textStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.w700, color: Colors.black);
 const linkText = TextStyle(
@@ -59,31 +77,7 @@ const subjectUnreadedFont = TextStyle(
 const titleReadedFont = TextStyle(color: Colors.black, fontSize: 16);
 const subjectReadedFont = TextStyle(fontSize: 13);
 
-InputDecoration textFieldDecoration(String text, Icon? icon) {
-  return InputDecoration(
-    labelText: " *$text",
-    // suffixIcon: requiredField,
-    prefixIcon: icon,
-    focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.lightBlueAccent),
-        borderRadius: BorderRadius.circular(30)),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30),
-    ),
-  );
-}
-
-bool longpressAppBar = false;
-
-const rowSpacer = TableRow(children: [
-  SizedBox(
-    height: 4,
-  ),
-  SizedBox(
-    height: 4,
-  )
-]);
-
+// Button style
 var buttonStyle = ButtonStyle(
   overlayColor: MaterialStateProperty.resolveWith<Color>(
     (Set<MaterialState> states) {
@@ -94,3 +88,8 @@ var buttonStyle = ButtonStyle(
     },
   ),
 );
+// App Logo still not used.
+const logo = Image(
+    image: AssetImage(
+  "assets/images/MailAppLogo.jpg",
+));

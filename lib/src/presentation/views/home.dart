@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ks_mail/src/domain/entities/home_page.dart';
 import 'package:ks_mail/src/presentation/widgets/app_bar_widgets/long_press_app_bar_widget.dart';
 import 'package:ks_mail/src/presentation/widgets/app_bar_widgets/serach_appbar_widget.dart';
 import 'package:ks_mail/src/presentation/widgets/bottom_navigator_widgets/bottom_navigator_widget.dart';
 import 'package:ks_mail/src/presentation/widgets/drawer_widgets/drawer_widget.dart';
-import 'package:ks_mail/src/utils/constants/constant.dart';
+import 'package:ks_mail/src/utils/constants/commom_functions.dart';
+import 'package:ks_mail/src/utils/constants/variables.dart';
 
-import 'package:ks_mail/src/presentation/riverpod/mail_list.dart';
 import '../../domain/entities/mail.dart';
-import '../../utils/constants/commom_functions.dart';
 import '../riverpod/navigator.dart';
-import '../riverpod/user.dart';
-import '../widgets/empty_bin_widget.dart';
+import '../widgets/button_widgets/empty_bin_widget.dart';
 import '../widgets/floating_action_button_widgets/floating_action_button_widget.dart';
 import '../widgets/list_view_content_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -28,17 +26,17 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   bool _showNavBar = true;
-  late List<Mail> mailList;
   ScrollController homeScrollController = ScrollController();
   List<Mail> _filteredMails = [];
+  List<Mail> mailList = [];
+  List<Mail> inboxMails = [];
+  List<Mail> mailListResult = [];
+  bool isLoading = true;
+  late int page;
+  bool firstTime = true;
 
-  late String titelText;
   @override
   void initState() {
-    //Set currentUser knownMails
-    currentUser!.knownMails = ref
-        .read(mailListProvider.notifier)
-        .getUserKnownMails(currentUser!.mail);
     homeScrollController.addListener(() {
       setState(() {
         _showNavBar = homeScrollController.position.userScrollDirection ==
@@ -46,82 +44,16 @@ class _HomePageState extends ConsumerState<HomePage> {
       });
     });
     super.initState();
+    firstTime = false;
   }
 
   @override
   Widget build(BuildContext context) {
     //To find the page
-    int page = ref.watch(navigatorProvider);
-    switch (page) {
-      case 0: //inbox
-        mailList = ref
-            .watch(mailListProvider)
-            .where((mail) =>
-                (isContainsCurrentUser(mail.to) ||
-                    isContainsCurrentUser(mail.cc) ||
-                    isContainsCurrentUser(mail.bcc)) &&
-                !mail.deletedBy.contains(currentUser!.id) &&
-                mail.draft != true &&
-                !mail.completelyDeleted.contains(currentUser!.id))
-            .toList()
-            .reversed
-            .toList();
-
-        titelText = AppLocalizations.of(context)!.inbox;
-      case 1: //starred
-        mailList = ref
-            .watch(mailListProvider)
-            .where((mail) =>
-                mail.starredBy.contains(currentUser!.id) &&
-                !mail.deletedBy.contains(currentUser!.id) &&
-                !mail.completelyDeleted.contains(currentUser!.id))
-            .toList()
-            .reversed
-            .toList();
-        // mailList = ref
-        //     .read(mailListProvider.notifier)
-        //     .getStarredMails()
-        //     .reversed
-        //     .toList();
-        titelText = AppLocalizations.of(context)!.starred;
-      case 2: //sent
-        mailList = ref
-            .watch(mailListProvider)
-            .where((mail) =>
-                mail.from.id == currentUser!.id &&
-                !mail.deletedBy.contains(currentUser!.id) &&
-                !mail.completelyDeleted.contains(currentUser!.id) &&
-                mail.draft == false)
-            .toList()
-            .reversed
-            .toList();
-        // mailList = ref.read(mailListProvider.notifier).getUserSentMails();
-        titelText = AppLocalizations.of(context)!.sent;
-      case 3: // draft
-        mailList = ref
-            .watch(mailListProvider)
-            .where((mail) =>
-                mail.from.id == currentUser!.id &&
-                mail.draft == true &&
-                mail.completelyDeleted.isEmpty &&
-                mail.deletedBy.isEmpty)
-            .toList()
-            .reversed
-            .toList();
-        // mailList = ref.read(mailListProvider.notifier).getUserDraft();
-        titelText = AppLocalizations.of(context)!.draft;
-      case 4: //bin
-        mailList = ref
-            .watch(mailListProvider)
-            .where((mail) =>
-                mail.deletedBy.contains(currentUser!.id) &&
-                !mail.completelyDeleted.contains(currentUser!.id))
-            .toList()
-            .reversed
-            .toList();
-        // mailList = ref.read(mailListProvider.notifier).getUserBinMails();
-        titelText = AppLocalizations.of(context)!.bin;
-    }
+    page = ref.watch(navigatorProvider);
+    //PageData data getHomeData(ref: ref, context: context, page: page);
+    PageData data = getHomePageData(ref: ref, context: context, page: page);
+    mailList = data.mailList;
 
     return Scaffold(
       key: _key,
@@ -149,14 +81,14 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: Padding(
               padding: const EdgeInsets.only(top: 13, bottom: 10, left: 7),
               child: Text(
-                _filteredMails.isNotEmpty ? "Quick search" : titelText,
+                _filteredMails.isNotEmpty ? "Quick search" : data.titleText,
                 style: const TextStyle(fontSize: 13),
                 textAlign: TextAlign.start,
               ),
             ),
           ),
           //To Empty Bin
-          if (page == 4 && mailList.isNotEmpty) const EmptyBinWidget(),
+          if (page == 4 && mailList.isNotEmpty) const EmptyBinButtnWidget(),
           // Mail List
           SliverList(
             delegate: SliverChildBuilderDelegate(

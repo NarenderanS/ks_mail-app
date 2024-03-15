@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="ks_mail"
+        android:label="KS Mail"
         android:name="${applicationName}"
         android:icon="@mipmap/mail_app_logo">
         <activity

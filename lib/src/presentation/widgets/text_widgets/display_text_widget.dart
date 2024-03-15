@@ -8,22 +8,14 @@ class DisplayTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      // alignment: WrapAlignment.end,
-      // runAlignment: WrapAlignment.center,
-      // runSpacing: 70,
-      // spacing: 10 ,
-      children: [
-        Text(
+    return ListTile(
+        leading: Text(
           defaultText,
           style: const TextStyle(fontSize: 20),
         ),
-        Text(
+        title: Text(
           text,
-          style: const TextStyle(fontSize: 20),
-        ),
-      ],
-    );
+          style: const TextStyle(fontSize: 22),
+        ));
   }
 }

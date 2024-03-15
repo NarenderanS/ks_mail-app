@@ -1,8 +1,7 @@
-
 import 'user_details.dart';
 
 class Mail {
-  final int id;
+  int? id;
   final UserDetails from;
   final List<UserDetails> to;
   final List<UserDetails> bcc;
@@ -18,7 +17,7 @@ class Mail {
   final String updatedAt;
 
   Mail({
-    required this.id,
+    this.id,
     required this.from,
     required this.to,
     required this.bcc,
@@ -61,5 +60,10 @@ class Mail {
         completelyDeleted: updatedCompletelyDeleted ?? completelyDeleted,
         createdAt: createdAt,
         updatedAt: updatedDateTime ?? updatedAt);
+  }
+
+  @override
+  String toString() {
+    return 'Mail{id: $id,\n from: $from,\n to: $to,\n bcc: $bcc,\n cc: $cc, subject: $subject,\n body: $body,\n draft: $draft,\n readedBy: $readedBy,\n starredBy: $starredBy, \ndeletedBy: $deletedBy,\n completelyDeleted: $completelyDeleted,\n createdAt: $createdAt,\n updatedAt: $updatedAt}';
   }
 }

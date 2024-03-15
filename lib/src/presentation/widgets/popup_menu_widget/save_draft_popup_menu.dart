@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
 
-import '../../riverpod/mail_list.dart';
 import '../../../utils/constants/commom_functions.dart';
 
 class ThreeSaveDraftDotPopUpMenuButtonWidget extends StatelessWidget {
@@ -34,17 +34,19 @@ class ThreeSaveDraftDotPopUpMenuButtonWidget extends StatelessWidget {
               PopupMenuItem(
                   enabled: subjectController.text.isNotEmpty ||
                       bodyController.text.isNotEmpty,
-                  onTap: () {
+                  onTap: () async {
                     if (id == 0) {
-                      id = ref.read(mailListProvider.notifier).addDraft(
-                          toData: toList,
-                          subjectData: subjectController.text,
-                          bodyData: bodyController.text,
-                          bccData: bccList,
-                          ccData: ccList);
+                      id = await ref
+                          .read(mailListNotifierProvider.notifier)
+                          .addDraft(
+                              toData: toList,
+                              subjectData: subjectController.text,
+                              bodyData: bodyController.text,
+                              bccData: bccList,
+                              ccData: ccList);
                       idReturn(id);
                     } else {
-                      ref.read(mailListProvider.notifier).editDraft(
+                      ref.read(mailListNotifierProvider.notifier).editDraft(
                           id: id,
                           toData: toList,
                           subjectData: subjectController.text,
@@ -54,10 +56,12 @@ class ThreeSaveDraftDotPopUpMenuButtonWidget extends StatelessWidget {
                       idReturn(id);
                     }
 
-                    snakeBar(
-                        context: context,
-                        text: "Draft Saved Successfully",
-                        color: Colors.green);
+                    if (context.mounted) {
+                      snackBar(
+                          context: context,
+                          text: "Draft Saved Successfully",
+                          color: Colors.green);
+                    }
                   },
                   child: const Text("Save as draft")),
             ]);

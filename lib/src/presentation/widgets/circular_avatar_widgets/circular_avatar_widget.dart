@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../utils/constants/constant.dart';
+import 'package:ks_mail/src/utils/constants/colors.dart';
 
 class CircularAvatarWidget extends StatelessWidget {
   const CircularAvatarWidget(

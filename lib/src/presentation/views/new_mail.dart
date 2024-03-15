@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
-import 'package:ks_mail/src/presentation/riverpod/user.dart';
+import 'package:ks_mail/src/presentation/riverpod/user_provider.dart';
 import '../../utils/constants/commom_functions.dart';
+import '../../utils/constants/variables.dart';
 import '../widgets/button_widgets/back_icon_button_widget.dart';
 import '../widgets/button_widgets/send_mail_button_widget.dart';
 import '../widgets/chip_widgets/display_text_chip_widget.dart';
@@ -12,7 +13,7 @@ import '../widgets/text_field_widgets/prefix_hint_text_field_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewMailPage extends ConsumerStatefulWidget {
-  NewMailPage(
+  const NewMailPage(
       {super.key,
       this.idValue,
       this.toValue,
@@ -21,12 +22,12 @@ class NewMailPage extends ConsumerStatefulWidget {
       this.subjectValue,
       this.bodyValue});
   static String id = "newMail";
-  int? idValue;
-  List<UserDetails>? toValue;
-  List<UserDetails>? bccValue;
-  List<UserDetails>? ccValue;
-  String? subjectValue;
-  String? bodyValue;
+  final int? idValue;
+  final List<UserDetails>? toValue;
+  final List<UserDetails>? bccValue;
+  final List<UserDetails>? ccValue;
+  final String? subjectValue;
+  final String? bodyValue;
 
   @override
   ConsumerState<NewMailPage> createState() => _NewMailPageState();
@@ -75,6 +76,7 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.read(userListNotifierProvider.notifier).getAllUsers();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -144,13 +146,13 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                       setState(() {
                         // print("to: $value");
                         UserDetails user = ref
-                            .read(userProvider.notifier)
+                            .read(userListNotifierProvider.notifier)
                             .getUserByMail(value);
                         if (user.mail == value) {
                           toList.add(user);
                           toController.text = '';
                         } else {
-                          snakeBar(
+                          snackBar(
                               context: context,
                               text: "Mail Id not found in our database");
                         }
@@ -193,13 +195,13 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                         onFieldSubmit: (value) {
                           setState(() {
                             UserDetails user = ref
-                                .read(userProvider.notifier)
+                                .read(userListNotifierProvider.notifier)
                                 .getUserByMail(value);
                             if (user.mail == value) {
                               ccList.add(user);
                               ccController.text = '';
                             } else {
-                              snakeBar(
+                              snackBar(
                                   context: context,
                                   text: "Mail Id not found in our database");
                             }
@@ -233,13 +235,13 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                         onFieldSubmit: (value) {
                           setState(() {
                             UserDetails user = ref
-                                .read(userProvider.notifier)
+                                .read(userListNotifierProvider.notifier)
                                 .getUserByMail(value);
                             if (user.mail == value) {
                               bccList.add(user);
                               bccController.text = '';
                             } else {
-                              snakeBar(
+                              snackBar(
                                   context: context,
                                   text: "Mail Id not found in our database");
                             }
@@ -267,7 +269,10 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
   void _toFilterList(String value) {
     setState(() {
       debugPrint(value);
-      _filteredMailId = currentUser!.knownMails.where((mailId) {
+      _filteredMailId = ref
+          .read(userListNotifierProvider.notifier)
+          .getAllUsersMails()
+          .where((mailId) {
         if (!isContainsMail(toList, mailId)) {
           return mailId.contains(toController.text.toLowerCase());
         }
@@ -280,7 +285,10 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
   void _ccFilterList(String value) {
     setState(() {
       debugPrint(value);
-      _filteredMailId = currentUser!.knownMails.where((mailId) {
+      _filteredMailId = ref
+          .read(userListNotifierProvider.notifier)
+          .getAllUsersMails()
+          .where((mailId) {
         if (!isContainsMail(ccList, mailId)) {
           return mailId.contains(toController.text.toLowerCase());
         }
@@ -293,7 +301,10 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
   void _bccFilterList(String value) {
     setState(() {
       debugPrint(value);
-      _filteredMailId = currentUser!.knownMails.where((mailId) {
+      _filteredMailId = ref
+          .read(userListNotifierProvider.notifier)
+          .getAllUsersMails()
+          .where((mailId) {
         if (!isContainsMail(bccList, mailId)) {
           return mailId.contains(toController.text.toLowerCase());
         }

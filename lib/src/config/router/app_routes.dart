@@ -8,9 +8,9 @@ import '../../presentation/views/settings.dart';
 
 var appRoutes = {
   LoginPage.id: (context) => LoginPage(),
-  RegisterPage.id: (context) => RegisterPage(),
+  RegisterPage.id: (context) =>const RegisterPage(),
   HomePage.id: (context) => const HomePage(),
-  NewMailPage.id: (context) => NewMailPage(),
+  NewMailPage.id: (context) =>const NewMailPage(),
   MailContentPage.id: (context) => const MailContentPage(),
   Settings.id: (context) => const Settings(),
   ProfilePage.id: (context) => const ProfilePage()

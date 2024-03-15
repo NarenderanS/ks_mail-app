@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/mail.dart';
-import 'package:ks_mail/src/domain/entities/user.dart';
 import 'package:ks_mail/src/utils/constants/commom_functions.dart';
 import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
 
-import '../../riverpod/user.dart';
-import '../../../utils/constants/constant.dart';
+import '../../../utils/constants/styles.dart';
+import '../../../utils/constants/variables.dart';
 
 class AddressWidget extends ConsumerWidget {
   const AddressWidget({super.key, required this.mail});

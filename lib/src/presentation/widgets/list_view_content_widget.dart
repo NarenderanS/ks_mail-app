@@ -3,14 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/mail.dart';
 import 'package:ks_mail/src/presentation/widgets/date_time_widgets/date_time_display_widget.dart';
 import 'package:ks_mail/src/presentation/widgets/text_widgets/address_widget.dart';
-import 'package:ks_mail/src/utils/constants/constant.dart';
+import 'package:ks_mail/src/utils/constants/styles.dart';
 import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
-import 'package:ks_mail/src/presentation/riverpod/user.dart';
+import '../../utils/constants/variables.dart';
 import '../../utils/constants/commom_functions.dart';
 import 'button_widgets/starred_icon_button.dart';
 import 'circular_avatar_widgets/circular_avatar_widget.dart';
 
-class ListViewContent extends ConsumerWidget {
+class ListViewContent extends ConsumerStatefulWidget {
   const ListViewContent({
     super.key,
     required this.mail,
@@ -18,22 +18,27 @@ class ListViewContent extends ConsumerWidget {
   final Mail mail;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ListViewContent> createState() => _ListViewContentState();
+}
+
+class _ListViewContentState extends ConsumerState<ListViewContent> {
+  @override
+  Widget build(BuildContext context) {
     int page = ref.watch(navigatorProvider);
     bool ifSentPage = page == 2;
     bool ifDraftPage = page == 3;
     bool ifUserAlreadyReaded = ifSentPage || ifDraftPage
         ? true
-        : mail.readedBy.contains(currentUser!.id);
+        : widget.mail.readedBy.contains(currentUser!.id);
     return Dismissible(
-      key: Key(mail.id.toString()),
-      direction: DismissDirection.horizontal,
+      key: UniqueKey(),
+      direction: DismissDirection.endToStart,
       // Move to bin or Delete Permanently based on page value
-      onDismissed: (direction) {
-        deleteMail(
+      onDismissed: (direction) async {
+        await deleteMail(
             context: context,
             ref: ref,
-            mailId: mail.id,
+            mailId: widget.mail.id!,
             delete: page,
             swipe: true);
       },
@@ -43,11 +48,7 @@ class ListViewContent extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
-              Icons.delete_outline,
-              color: Colors.red,
-              size: 25,
-            ),
+            Spacer(),
             Icon(
               Icons.delete_outline,
               color: Colors.red,
@@ -58,10 +59,12 @@ class ListViewContent extends ConsumerWidget {
       ),
       child: InkWell(
         onTap: () {
+          setState(() {});
           // Convert bold to normal text
           boldToNormalText(
-              context: context, ref: ref, mailId: mail.id, page: page);
+              context: context, ref: ref, mailId: widget.mail.id!, page: page);
         },
+
         // // On development
         // onLongPress: () {
         //   longpressAppBar = true;
@@ -77,7 +80,7 @@ class ListViewContent extends ConsumerWidget {
                 padding: const EdgeInsets.only(right: 10, top: 5),
                 //leading circle with text
                 child: CircularAvatarWidget(
-                    text: ifDraftPage ? "D" : mail.from.username[0]),
+                    text: ifDraftPage ? "D" : widget.mail.from.username[0]),
               ),
               Expanded(
                 child: Column(
@@ -87,12 +90,12 @@ class ListViewContent extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Sender name
-                        AddressWidget(mail: mail),
+                        AddressWidget(mail: widget.mail),
                         // Mail created date or time
                         DateTimeDisplayWidget(
-                            createdAt: mail.updatedAt.isEmpty
-                                ? mail.createdAt
-                                : mail.updatedAt)
+                            createdAt: widget.mail.updatedAt.isEmpty
+                                ? widget.mail.createdAt
+                                : widget.mail.updatedAt)
                       ],
                     ),
                     Row(
@@ -104,14 +107,14 @@ class ListViewContent extends ConsumerWidget {
                             children: [
                               // Mail Subject
                               Text(
-                                mail.subject,
+                                widget.mail.subject,
                                 overflow: TextOverflow.ellipsis,
                                 style: ifUserAlreadyReaded
                                     ? subjectReadedFont
                                     : subjectUnreadedFont,
                               ),
                               // Mail body
-                              Text(mail.body.replaceAll("\n", ""),
+                              Text(widget.mail.body.replaceAll("\n", ""),
                                   overflow: TextOverflow.ellipsis,
                                   // maxLines: 1,
                                   style: smallFont)
@@ -119,8 +122,9 @@ class ListViewContent extends ConsumerWidget {
                           ),
                         ),
                         StarredIconButtonWidget(
-                          isStarred: mail.starredBy.contains(currentUser!.id),
-                          id: mail.id,
+                          isStarred:
+                              widget.mail.starredBy.contains(currentUser!.id),
+                          id: widget.mail.id!,
                         )
                       ],
                     )

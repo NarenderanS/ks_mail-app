@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
 
-import '../riverpod/mail_list.dart';
-import '../../utils/constants/constant.dart';
+import '../../../utils/constants/styles.dart';
+import '../../../utils/constants/variables.dart';
 
-class EmptyBinWidget extends StatelessWidget {
-  const EmptyBinWidget({
+class EmptyBinButtnWidget extends StatelessWidget {
+  const EmptyBinButtnWidget({
     super.key,
   });
 
@@ -16,10 +17,6 @@ class EmptyBinWidget extends StatelessWidget {
         padding: const EdgeInsets.only(top: 13, bottom: 10, left: 7),
         child: Wrap(
           children: [
-            // IconButton(
-            //   onPressed: () {},
-            //   icon: const Icon(Icons.delete_forever_outlined),
-            // ),
             OutlinedButton(
                 style: buttonStyle.copyWith(),
                 onPressed: () => alertConfirmationEmptyBinDialogBox(
@@ -63,7 +60,9 @@ Future<dynamic> alertConfirmationEmptyBinDialogBox(
               style: buttonStyle,
               child: Text(confirmText),
               onPressed: () {
-                ref.read(mailListProvider.notifier).emptyBin();
+                ref
+                    .read(mailListNotifierProvider.notifier)
+                    .emptyBin(currentUser!.id!);
                 Navigator.of(context).pop();
               },
             );
