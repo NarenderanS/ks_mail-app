@@ -1,6 +1,6 @@
 import 'package:ks_mail/src/domain/entities/mail.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
-import 'package:ks_mail/src/utils/constants/un_used/user.dart';
+import 'package:ks_mail/src/data/datasources/local/database/default_users.dart';
 
 List<Mail> mails = [
   Mail(
