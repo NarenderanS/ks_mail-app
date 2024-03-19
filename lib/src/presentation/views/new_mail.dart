@@ -154,12 +154,11 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                         } else {
                           snackBar(
                               context: context,
-                              text: "Mail Id not found in our database");
+                              text: AppLocalizations.of(context)!.not_found);
                         }
                       });
                     },
                     onTap: () {
-                      print("a");
                       setState(() => subFieldVisible = !subFieldVisible);
                     },
                     filterList: _toFilterList,
@@ -203,7 +202,7 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                             } else {
                               snackBar(
                                   context: context,
-                                  text: "Mail Id not found in our database");
+                                  text: AppLocalizations.of(context)!.not_found);
                             }
                           });
                         },
@@ -243,7 +242,7 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                             } else {
                               snackBar(
                                   context: context,
-                                  text: "Mail Id not found in our database");
+                                  text: AppLocalizations.of(context)!.not_found);
                             }
                           });
                         },

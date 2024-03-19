@@ -30,5 +30,16 @@
 "empty_body_alert":"Fügen Sie mindestens einen Empfänger hinzu",
 "ok":"OK",
 "invalid_credentials":"Ungültige Anmeldeinformationen",
-"change_lang":"Sprache ändern"
+"register_success":"Benutzer hat sich erfolgreich registriert",
+"login_success":"Erfolgreich eingeloggt",
+"logout_success":"Abmelden erfolgreich",
+"change_lang":"Sprache ändern",
+"en":"Englisch",
+"de":"Deutsch",
+"q_search":"Schnelle Suche",
+"you":"Du",
+"not_found":"Mail-ID wurde in unserer Datenbank nicht gefunden",
+"profile":"Profil",
+"e_profile":"Profil bearbeiten",
+"update":"Aktualisieren"
 }

@@ -75,7 +75,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         _resetRegisterForm();
                         snackBar(
                             context: context,
-                            text: "User registered successfully",
+                            text:
+                                AppLocalizations.of(context)!.register_success,
                             color: Colors.green.shade600);
                         Navigator.pushNamed(context, LoginPage.id);
                       }
@@ -102,6 +103,8 @@ class _RegisterPageState extends State<RegisterPage> {
     mailController.text = '';
     passwordController.text = '';
     cPasswordController.text = '';
+    phoneNoController.text = '';
+    usernameController.text = '';
     _registerformKey.currentState!.reset();
   }
 }

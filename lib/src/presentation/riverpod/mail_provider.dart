@@ -7,7 +7,6 @@ import 'package:ks_mail/src/domain/entities/mail.dart';
 import 'package:ks_mail/src/domain/repositories/mail_list_repository.dart';
 
 import '../../domain/entities/user_details.dart';
-import '../../utils/constants/commom_functions.dart';
 import '../../utils/constants/variables.dart';
 import '../../utils/date_time.dart';
 
@@ -34,67 +33,9 @@ class MailListNotifier extends StateNotifier<List<Mail>> {
     return mailsOrFailure.fold((error) => state = [], (mails) => state = mails);
   }
 
-  List<Mail> getUserMails() {
-    return state
-        .where((mail) =>
-            (isContainsCurrentUser(mail.to) ||
-                isContainsCurrentUser(mail.cc) ||
-                isContainsCurrentUser(mail.bcc)) &&
-            !mail.deletedBy.contains(currentUser!.id) &&
-            mail.draft != true &&
-            !mail.completelyDeleted.contains(currentUser!.id))
-        .toList()
-        .reversed
-        .toList();
-  }
-
-  List<Mail> getStarredMails() {
-    return state
-        .where((mail) =>
-            mail.starredBy.contains(currentUser!.id) &&
-            !mail.deletedBy.contains(currentUser!.id) &&
-            !mail.completelyDeleted.contains(currentUser!.id))
-        .toList()
-        .reversed
-        .toList();
-  }
-
+ 
   Mail getMailById(int mailId) {
     return state.where((mail) => mail.id == mailId).toList()[0];
-  }
-
-  List<Mail> getUserSentMails() {
-    return state
-        .where((mail) =>
-            mail.from.id == currentUser!.id &&
-            !mail.deletedBy.contains(currentUser!.id) &&
-            !mail.completelyDeleted.contains(currentUser!.id) &&
-            mail.draft == false)
-        .toList()
-        .reversed
-        .toList();
-  }
-
-  List<Mail> getUserDraft() {
-    return state
-        .where((mail) =>
-            mail.from.id == currentUser!.id &&
-            mail.draft == true &&
-            mail.completelyDeleted.isEmpty &&
-            mail.deletedBy.isEmpty)
-        .toList()
-        .reversed
-        .toList();
-  }
-
-  List<Mail> getUserBinMails() {
-    return state
-        .where((mail) =>
-            mail.deletedBy.contains(currentUser!.id) &&
-            !mail.completelyDeleted.contains(currentUser!.id))
-        .toList()
-        .reversed
-        .toList();
   }
 
   Future<int> addDraft(
@@ -248,4 +189,59 @@ class MailListNotifier extends StateNotifier<List<Mail>> {
     }
     state = updatedMails;
   }
+
+//  List<Mail> getUserMails() {
+//     return state
+//         .where((mail) =>
+//             (isContainsCurrentUser(mail.to) ||
+//                 isContainsCurrentUser(mail.cc) ||
+//                 isContainsCurrentUser(mail.bcc)) &&
+//             !mail.deletedBy.contains(currentUser!.id) &&
+//             mail.draft != true &&
+//             !mail.completelyDeleted.contains(currentUser!.id))
+//         .toList()
+//         .reversed
+//         .toList();
+//   }
+//   List<Mail> getStarredMails() {
+//     return state
+//         .where((mail) =>
+//             mail.starredBy.contains(currentUser!.id) &&
+//             !mail.deletedBy.contains(currentUser!.id) &&
+//             !mail.completelyDeleted.contains(currentUser!.id))
+//         .toList()
+//         .reversed
+//         .toList();
+//   }
+//   List<Mail> getUserSentMails() {
+//     return state
+//         .where((mail) =>
+//             mail.from.id == currentUser!.id &&
+//             !mail.deletedBy.contains(currentUser!.id) &&
+//             !mail.completelyDeleted.contains(currentUser!.id) &&
+//             mail.draft == false)
+//         .toList()
+//         .reversed
+//         .toList();
+//   }
+//   List<Mail> getUserDraft() {
+//     return state
+//         .where((mail) =>
+//             mail.from.id == currentUser!.id &&
+//             mail.draft == true &&
+//             mail.completelyDeleted.isEmpty &&
+//             mail.deletedBy.isEmpty)
+//         .toList()
+//         .reversed
+//         .toList();
+//   }
+//   List<Mail> getUserBinMails() {
+//     return state
+//         .where((mail) =>
+//             mail.deletedBy.contains(currentUser!.id) &&
+//             !mail.completelyDeleted.contains(currentUser!.id))
+//         .toList()
+//         .reversed
+//         .toList();
+//   }
 }

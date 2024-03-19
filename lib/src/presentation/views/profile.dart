@@ -7,7 +7,6 @@ import 'package:ks_mail/src/utils/constants/icons.dart';
 import 'package:ks_mail/src/utils/constants/styles.dart';
 
 import '../../utils/constants/variables.dart';
-import '../widgets/text_field_widgets/password_widget.dart';
 import '../widgets/text_field_widgets/phone_no_widget.dart';
 import '../widgets/text_field_widgets/username_widget.dart';
 import '../widgets/text_widgets/display_text_widget.dart';
@@ -37,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackIconButtonWidget(),
-        title: const Text('Profile'),
+        title: Text(AppLocalizations.of(context)!.profile),
       ),
       body: ListView(
         padding: safePadding,
@@ -64,15 +63,15 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           DisplayTextWidget(
-            defaultText: "Username: ",
+            defaultText: "${AppLocalizations.of(context)!.username}: ",
             text: currentUser!.username,
           ),
           DisplayTextWidget(
-            defaultText: "Mail: ",
+            defaultText: "${AppLocalizations.of(context)!.mail}: ",
             text: currentUser!.mail,
           ),
           DisplayTextWidget(
-            defaultText: "PhoneNo: ",
+            defaultText: "${AppLocalizations.of(context)!.phoneNo}: ",
             text: currentUser!.phoneNo,
           ),
         ],
@@ -96,9 +95,9 @@ class EdtProfileWidget extends ConsumerWidget {
     return AlertDialog(
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
-      title: const Text(
-        "Edit Profile",
-        style: TextStyle(fontSize: 20),
+      title: Text(
+        AppLocalizations.of(context)!.e_profile,
+        style: const TextStyle(fontSize: 20),
       ),
       content: Wrap(
         children: [
@@ -124,7 +123,7 @@ class EdtProfileWidget extends ConsumerWidget {
                   }
                 },
                 style: buttonStyle,
-                child: const Text('Update'),
+                child: Text(AppLocalizations.of(context)!.update),
               )
             ]),
           ),

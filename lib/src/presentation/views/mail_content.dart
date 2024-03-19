@@ -4,6 +4,7 @@ import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
 import 'package:ks_mail/src/presentation/views/new_mail.dart';
 import 'package:ks_mail/src/presentation/widgets/popup_menu_widget/three_dot_widget.dart';
 import 'package:ks_mail/src/utils/constants/variables.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../domain/entities/mail.dart';
 import '../../domain/entities/new_mail.dart';
@@ -35,7 +36,7 @@ class _MailContentPageState extends ConsumerState<MailContentPage> {
   Widget build(BuildContext context) {
     NewMail arg = ModalRoute.of(context)!.settings.arguments as NewMail;
     int mailId = arg.mailId;
-    mail =  ref.watch(mailListNotifierProvider)[mailId - 1];
+    mail = ref.watch(mailListNotifierProvider)[mailId - 1];
     print(mailId);
     String addresses = getData(
         page: arg.page,
@@ -80,7 +81,6 @@ class _MailContentPageState extends ConsumerState<MailContentPage> {
                           height: 1,
                           letterSpacing: 0.2),
                     )),
-                    
                     StarredIconButtonWidget(
                         isStarred: mail.starredBy.contains(currentUser!.id),
                         id: mail.id!),
@@ -227,7 +227,7 @@ class _MailContentPageState extends ConsumerState<MailContentPage> {
                         bccAddress: mail.from.mail == currentUser!.mail
                             ? getUsernamesFromList(mailList: mail.bcc)
                             : isContainsCurrentUser(mail.bcc)
-                                ? "You"
+                                ? AppLocalizations.of(context)!.you
                                 : "",
                         dateAndTime: mail.updatedAt.isEmpty
                             ? mail.createdAt

@@ -13,7 +13,10 @@ class Settings extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     bool selected = ref.watch(localizationProvider) == 'en';
     return Scaffold(
-      appBar: AppBar(leading: const BackIconButtonWidget()),
+      appBar: AppBar(
+        leading: const BackIconButtonWidget(),
+        title: Text(AppLocalizations.of(context)!.settings),
+      ),
       body: ListView(
         children: [
           Padding(
@@ -28,7 +31,7 @@ class Settings extends ConsumerWidget {
               ref.read(localizationProvider.notifier).setLanguage("en");
             },
             child: ListTile(
-              title: const Text("English"),
+              title: Text(AppLocalizations.of(context)!.en),
               trailing: selected ? selectedIcon : null,
             ),
           ),
@@ -37,7 +40,7 @@ class Settings extends ConsumerWidget {
               ref.read(localizationProvider.notifier).setLanguage("de");
             },
             child: ListTile(
-              title: const Text("German"),
+              title: Text(AppLocalizations.of(context)!.de),
               trailing: !selected ? selectedIcon : null,
             ),
           )

@@ -30,5 +30,16 @@
 "empty_body_alert":"Add at least one recipient",
 "ok":"Ok",
 "invalid_credentials":"Invalid Credentials",
-"change_lang":"Change Language"
+"register_success":"User registered successfully",
+"login_success":"Logged in successfully",
+"logout_success":"Logout Successfully",
+"change_lang":"Change Language",
+"en":"English",
+"de":"German",
+"q_search":"Quick search",
+"you":"You",
+"not_found":"Mail Id not found in our database",
+"profile":"Profile",
+"e_profile":"Edit Profile",
+"update":"Update"
 }

@@ -8,6 +8,7 @@ import 'package:ks_mail/src/presentation/widgets/bottom_navigator_widgets/bottom
 import 'package:ks_mail/src/presentation/widgets/drawer_widgets/drawer_widget.dart';
 import 'package:ks_mail/src/utils/constants/commom_functions.dart';
 import 'package:ks_mail/src/utils/constants/variables.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../domain/entities/mail.dart';
 import '../riverpod/navigator.dart';
@@ -81,7 +82,9 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: Padding(
               padding: const EdgeInsets.only(top: 13, bottom: 10, left: 7),
               child: Text(
-                _filteredMails.isNotEmpty ? "Quick search" : data.titleText,
+                _filteredMails.isNotEmpty
+                    ? AppLocalizations.of(context)!.q_search
+                    : data.titleText,
                 style: const TextStyle(fontSize: 13),
                 textAlign: TextAlign.start,
               ),

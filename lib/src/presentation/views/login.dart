@@ -14,7 +14,7 @@ import '../widgets/text_field_widgets/email_widget.dart';
 import '../widgets/text_field_widgets/password_widget.dart';
 
 class LoginPage extends ConsumerWidget {
-   LoginPage({super.key});
+  LoginPage({super.key});
   static String id = "login";
   final _loginformKey = GlobalKey<FormState>();
   final TextEditingController mailController = TextEditingController();
@@ -64,19 +64,20 @@ class LoginPage extends ConsumerWidget {
                     if (context.mounted) {
                       snackBar(
                           context: context,
-                          text: "Logined Successfully",
+                          text: AppLocalizations.of(context)!.login_success,
                           color: Colors.green);
 
                       _clearRegisterForm();
 
-                      Navigator.popAndPushNamed(
-                        context,
-                        HomePage.id,
-                      );
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, HomePage.id, (route) => false);
                     }
                   } else {
                     if (context.mounted) {
-                      snackBar(context: context, text: "Invalid Credentials");
+                      snackBar(
+                          context: context,
+                          text: AppLocalizations.of(context)!
+                              .invalid_credentials);
                     }
                   }
                 }),
