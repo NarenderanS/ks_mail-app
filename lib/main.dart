@@ -14,7 +14,8 @@ import 'src/config/themes/app_theme.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   DBHelper dbConnection = DBHelper();
-  dbConnection.database;
+  dbConnection.initializeDB();
+  // getDatabase();
 
   // dbConnection.showTables();
 
@@ -79,6 +80,7 @@ class WelcomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             verticalSpace30px,
+            // Login button
             Button(
               text: AppLocalizations.of(context)!.login,
               color: Colors.lightGreen,
@@ -87,6 +89,7 @@ class WelcomePage extends StatelessWidget {
               },
             ),
             Text(AppLocalizations.of(context)!.or, textAlign: TextAlign.center),
+            // SignUp button
             Button(
               text: AppLocalizations.of(context)!.register,
               color: const Color.fromARGB(255, 74, 195, 118),

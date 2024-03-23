@@ -20,9 +20,9 @@ class UsernameWidget extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           if (value!.isEmpty) {
-            return "Please Enter some text";
+            return AppLocalizations.of(context)!.empty_username;
           } else if (value.length < 4) {
-            return "Username must be at least 4 characters long";
+            return AppLocalizations.of(context)!.valid_username;
           }
           return null;
         },

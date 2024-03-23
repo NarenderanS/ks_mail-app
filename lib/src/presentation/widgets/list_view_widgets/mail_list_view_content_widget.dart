@@ -5,10 +5,10 @@ import 'package:ks_mail/src/presentation/widgets/date_time_widgets/date_time_dis
 import 'package:ks_mail/src/presentation/widgets/text_widgets/address_widget.dart';
 import 'package:ks_mail/src/utils/constants/styles.dart';
 import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
-import '../../utils/constants/variables.dart';
-import '../../utils/constants/commom_functions.dart';
-import 'button_widgets/starred_icon_button.dart';
-import 'circular_avatar_widgets/circular_avatar_widget.dart';
+import '../../../utils/constants/variables.dart';
+import '../../../utils/constants/commom_functions.dart';
+import '../button_widgets/starred_icon_button.dart';
+import '../circular_avatar_widgets/circular_avatar_widget.dart';
 
 class ListViewContent extends ConsumerStatefulWidget {
   const ListViewContent({

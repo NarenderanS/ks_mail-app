@@ -63,20 +63,20 @@ class _PasswordWidgetState extends State<PasswordWidget> {
 
   passwordValidation(String? value) {
     if (value!.isEmpty) {
-      return 'Please enter a password';
+      return AppLocalizations.of(context)!.empty_password;
     } else if (value.length < 6) {
-      return 'Password must be at least 6 characters long';
+      return AppLocalizations.of(context)!.password_length;
     } else if (!_isValidPassword(value)) {
-      return 'Password must contain at least \none uppercase letter, \none lowercase letter, \none digit, \none special character';
+      return AppLocalizations.of(context)!.password_condition;
     }
     return null;
   }
 
   confirmPasswordValidation(String? value) {
     if (value!.isEmpty) {
-      return 'Please enter a password';
+      return AppLocalizations.of(context)!.empty_password;
     } else if (value != widget.passwordController.text) {
-      return 'Passwords do not match';
+      return AppLocalizations.of(context)!.password_match;
     }
     return null;
   }

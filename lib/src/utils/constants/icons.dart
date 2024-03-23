@@ -10,3 +10,5 @@ Icon backIcon = const Icon(Icons.arrow_back);
 Icon menuIcon = const Icon(Icons.menu_outlined);
 Icon profileIcon = const Icon(Icons.person_outlined);
 Icon selectedIcon = const Icon(Icons.done, color: green500);
+Icon downloadIcon = const Icon(Icons.file_download_outlined);
+Icon noInternetIcon = const Icon(Icons.cloud_off_outlined, size: 30);

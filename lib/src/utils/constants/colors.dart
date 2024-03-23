@@ -12,3 +12,5 @@ const dullBlue = Color.fromARGB(255, 224, 236, 247);
 const blue100 = Color.fromARGB(255, 187, 222, 251);
 const blue200 = Color.fromARGB(255, 144, 202, 249);
 const blue300 = Color.fromARGB(255, 100, 181, 246);
+const blue= Color.fromARGB(255, 226, 239, 246);
+const dullBlueTrans= Color.fromARGB(255, 214, 240, 252);

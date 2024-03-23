@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/user_details.dart';
 import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../utils/constants/commom_functions.dart';
 
+// ignore: must_be_immutable
 class ThreeSaveDraftDotPopUpMenuButtonWidget extends StatelessWidget {
   ThreeSaveDraftDotPopUpMenuButtonWidget(
       {super.key,
@@ -59,11 +61,11 @@ class ThreeSaveDraftDotPopUpMenuButtonWidget extends StatelessWidget {
                     if (context.mounted) {
                       snackBar(
                           context: context,
-                          text: "Draft Saved Successfully",
+                          text: AppLocalizations.of(context)!.draft_success,
                           color: Colors.green);
                     }
                   },
-                  child: const Text("Save as draft")),
+                  child: Text(AppLocalizations.of(context)!.save_draft)),
             ]);
   }
 }

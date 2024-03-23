@@ -20,9 +20,9 @@ final TextEditingController mailController;
         validator: (value) {
           // Email validation using regular expression
           if (value!.isEmpty) {
-            return 'Please enter an email address';
+            return AppLocalizations.of(context)!.empty_mail;
           } else if (!_isValidEmail(value)) {
-            return 'Please enter a valid email address';
+            return AppLocalizations.of(context)!.valid_mail;
           }
           return null;
         },

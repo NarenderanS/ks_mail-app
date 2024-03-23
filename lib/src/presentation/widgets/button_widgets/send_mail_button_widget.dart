@@ -32,7 +32,6 @@ class SendMailButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {
-          // toControllerList = ["test2@kumaran.com"];
           if ((toList.isNotEmpty || ccList.isNotEmpty || bccList.isNotEmpty) &&
               (bodyController.text.isNotEmpty &&
                   subjectController.text.isNotEmpty)) {
@@ -45,7 +44,7 @@ class SendMailButtonWidget extends StatelessWidget {
                 ccData: ccList);
             snackBar(
                 context: context,
-                text: "Mail Sent Successfully",
+                text: AppLocalizations.of(context)!.mail_sent_s,
                 color: Colors.green);
             Navigator.pushNamed(context, HomePage.id);
           } else if (toList.isEmpty && ccList.isEmpty && bccList.isEmpty) {
@@ -58,10 +57,9 @@ class SendMailButtonWidget extends StatelessWidget {
             // If body field are empty
             alertConfirmationSentMailDialogBox(
                 context: context,
-                titleText: "Subject and Body is empty",
-                contentText:
-                    "Are you want to send mail without subject and body",
-                confirmText: "Confirm",
+                titleText: AppLocalizations.of(context)!.body_and_subject_empty,
+                contentText:AppLocalizations.of(context)!.content_body_and_subject_empty,
+                confirmText: AppLocalizations.of(context)!.confirm,
                 idValue: idValue,
                 toList: toList,
                 ccList: ccList,
@@ -72,9 +70,9 @@ class SendMailButtonWidget extends StatelessWidget {
             // If body field are empty
             alertConfirmationSentMailDialogBox(
                 context: context,
-                titleText: "Body is empty",
-                contentText: "Are you want to send mail without body",
-                confirmText: "Confirm",
+                titleText: AppLocalizations.of(context)!.body_empty,
+                contentText: AppLocalizations.of(context)!.content_body_empty,
+                confirmText: AppLocalizations.of(context)!.confirm,
                 idValue: idValue,
                 toList: toList,
                 ccList: ccList,
@@ -85,9 +83,9 @@ class SendMailButtonWidget extends StatelessWidget {
             // If subject field are empty
             alertConfirmationSentMailDialogBox(
                 context: context,
-                titleText: "Subject is empty",
-                contentText: "Are you want to send mail without Subject",
-                confirmText: "Confirm",
+                titleText: AppLocalizations.of(context)!.subject_empty,
+                contentText: AppLocalizations.of(context)!.content_subject_empty,
+                confirmText: AppLocalizations.of(context)!.confirm,
                 idValue: idValue,
                 toList: toList,
                 ccList: ccList,
@@ -123,7 +121,7 @@ Future<dynamic> alertConfirmationSentMailDialogBox({
         actions: <Widget>[
           OutlinedButton(
             style: buttonStyle,
-            child: const Text('Cancel'),
+            child:  Text(AppLocalizations.of(context)!.cancel),
             onPressed: () {
               Navigator.of(context).pop();
             },

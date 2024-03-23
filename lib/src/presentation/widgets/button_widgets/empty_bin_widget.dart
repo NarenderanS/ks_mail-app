@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/presentation/riverpod/mail_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../utils/constants/styles.dart';
 import '../../../utils/constants/variables.dart';
@@ -21,11 +22,12 @@ class EmptyBinButtnWidget extends StatelessWidget {
                 style: buttonStyle.copyWith(),
                 onPressed: () => alertConfirmationEmptyBinDialogBox(
                       context: context,
-                      titleText: 'Empty Bin?',
-                      contentText: 'This will delete the bin mails permanently',
-                      confirmText: 'Empty Bin',
+                      titleText: '${AppLocalizations.of(context)!.empty_bin}?',
+                      contentText:
+                          AppLocalizations.of(context)!.content_del_permanent,
+                      confirmText: AppLocalizations.of(context)!.empty_bin,
                     ),
-                child: const Text("Empty Bin"))
+                child: Text(AppLocalizations.of(context)!.empty_bin))
           ],
         ),
       ),
@@ -49,7 +51,7 @@ Future<dynamic> alertConfirmationEmptyBinDialogBox(
         actions: <Widget>[
           OutlinedButton(
             style: buttonStyle,
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
             onPressed: () {
               Navigator.of(context).pop();
             },

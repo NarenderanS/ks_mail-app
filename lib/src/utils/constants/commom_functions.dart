@@ -166,17 +166,16 @@ deleteMail(
     ref.read(mailListNotifierProvider.notifier).deleteMail(mailId);
     snackBar(
       context: context,
-      text: "Mail deleted permanently",
+      text: AppLocalizations.of(context)!.content_mail_del_per,
     );
   } else {
     ref.read(mailListNotifierProvider.notifier).moveToBin(mailId);
-    snackBar(context: context, text: "Mail moved to bin");
+    snackBar(context: context, text: AppLocalizations.of(context)!.content_mail_move_to_bin);
   }
   if (!swipe!) {
     Navigator.pop(context);
   }
 }
-
 // Move from bin to original place
 Future<void> moveFromBin(
     {required BuildContext context,
@@ -186,7 +185,7 @@ Future<void> moveFromBin(
   ref.read(mailListNotifierProvider.notifier).moveFromBin(mailId);
   snackBar(
       context: context,
-      text: "Mail moved back to original place",
+      text: AppLocalizations.of(context)!.content_mail_moved_back,
       color: Colors.green);
   if (back!) Navigator.pop(context);
 }

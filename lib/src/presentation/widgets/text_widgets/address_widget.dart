@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/domain/entities/mail.dart';
 import 'package:ks_mail/src/utils/constants/commom_functions.dart';
 import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../utils/constants/styles.dart';
 import '../../../utils/constants/variables.dart';
@@ -36,7 +37,7 @@ class AddressWidget extends ConsumerWidget {
         );
       case 3: //draft
         return Text(
-          "Draft",
+          AppLocalizations.of(context)!.draft,
           style: titleReadedFont.copyWith(color: Colors.red),
         );
     }

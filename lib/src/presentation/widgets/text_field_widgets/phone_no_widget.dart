@@ -21,9 +21,9 @@ class PhoneNoWidget extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           if (value!.isEmpty) {
-            return "Please Enter Phone Number";
+            return AppLocalizations.of(context)!.empty_phoneNo;
           } else if (!_isValidPhoneNumber(value)) {
-            return 'Enter a valid phone number';
+            return AppLocalizations.of(context)!.valid_phoneNo;
           }
           return null;
         },

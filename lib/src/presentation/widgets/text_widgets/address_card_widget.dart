@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ks_mail/src/utils/date_time.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../utils/constants/styles.dart';
 
@@ -24,21 +25,30 @@ class AddressCardWidget extends StatelessWidget {
       columnWidths: const {0: FixedColumnWidth(50)},
       children: [
         TableRow(
-          children: [const Text("From"), Text(fromAddress)],
+          children: [
+            Text(AppLocalizations.of(context)!.from),
+            Text(fromAddress)
+          ],
         ),
         rowSpacer,
         TableRow(
-          children: [const Text("To"), Text(toAddress)],
+          children: [Text(AppLocalizations.of(context)!.to), Text(toAddress)],
         ),
         rowSpacer,
         if (ccAddress.isNotEmpty)
-          TableRow(children: [const Text("Cc"), Text(ccAddress)]),
+          TableRow(children: [
+            Text(AppLocalizations.of(context)!.cc),
+            Text(ccAddress)
+          ]),
         if (ccAddress.isNotEmpty) rowSpacer,
         if (bccAddress.isNotEmpty)
-          TableRow(children: [const Text("Bcc"), Text(bccAddress)]),
+          TableRow(children: [
+            Text(AppLocalizations.of(context)!.bcc),
+            Text(bccAddress)
+          ]),
         if (bccAddress.isNotEmpty) rowSpacer,
         TableRow(children: [
-          const Text("Date"),
+          Text(AppLocalizations.of(context)!.date),
           Text(DateTimeFormat().getDisplayDateAndTime(dateAndTime))
         ]),
       ],

@@ -114,7 +114,7 @@ class DBHelper {
           conflictAlgorithm: ConflictAlgorithm.replace,
         );
       }
-      print("Mail ${mailId} added to db");
+      print("Mail $mailId added to db");
       // return mailId;
     }
     print("Transfer Mail Completed");

@@ -50,7 +50,7 @@ class LoginPage extends ConsumerWidget {
                 onPressed: () async {
                   if (_loginformKey.currentState!.validate() &&
                       await ref
-                          .read(userListNotifierProvider.notifier)
+                          .read(userListNotifierProvider.notifier)  
                           .validateUser(
                               mail: mailController.text,
                               password: passwordController.text) &&

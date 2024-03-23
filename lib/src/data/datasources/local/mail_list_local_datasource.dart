@@ -94,7 +94,7 @@ class MailListLocalDataSource {
       );
     }
 
-    print("Mail ${mailId} added to db");
+    print("Mail $mailId added to db");
     return mailId;
   }
 

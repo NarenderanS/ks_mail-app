@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ks_mail/src/presentation/riverpod/user_provider.dart';
-import 'package:ks_mail/src/presentation/widgets/text_field_widgets/email_widget.dart';
-import 'package:ks_mail/src/presentation/widgets/text_field_widgets/password_widget.dart';
 import 'package:ks_mail/src/utils/constants/styles.dart';
 import 'package:ks_mail/src/presentation/views/login.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../utils/constants/commom_functions.dart';
 import '../widgets/button_widgets/rounded_button_widget.dart';
 import '../widgets/text_widgets/link_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/text_field_widgets/email_widget.dart';
+import '../widgets/text_field_widgets/password_widget.dart';
 import '../widgets/text_field_widgets/phone_no_widget.dart';
 import '../widgets/text_field_widgets/username_widget.dart';
 

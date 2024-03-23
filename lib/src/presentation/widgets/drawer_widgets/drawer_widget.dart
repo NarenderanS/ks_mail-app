@@ -6,11 +6,12 @@ import 'package:ks_mail/src/presentation/widgets/drawer_widgets/drawer_body_widg
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ks_mail/src/presentation/riverpod/navigator.dart';
 
-
 import '../../../utils/constants/commom_functions.dart';
 import '../../../utils/constants/variables.dart';
+import '../../views/apps.dart';
 import '../../views/login.dart';
 
+// ignore: must_be_immutable
 class DrawerWidget extends ConsumerWidget {
   DrawerWidget({super.key});
   late int selected;
@@ -88,6 +89,14 @@ class DrawerWidget extends ConsumerWidget {
                 Navigator.pushNamed(context, Settings.id);
               },
               isSelected: selected == 5),
+          //Apps
+          DrawerBodyContent(
+              text:AppLocalizations.of(context)!.o_apps,
+              icon: Icons.apps_rounded,
+              onTap: () {
+                Navigator.pushNamed(context, AppPage.id);
+              },
+              isSelected: selected == 6),
           //Signout
           DrawerBodyContent(
               text: AppLocalizations.of(context)!.signout,
@@ -95,7 +104,7 @@ class DrawerWidget extends ConsumerWidget {
               onTap: () {
                 snackBar(
                     context: context,
-                    text: "Logout Successfully",
+                    text: AppLocalizations.of(context)!.logout_success,
                     color: Colors.green);
                 ref.read(navigatorProvider.notifier).updateCategory(0);
                 Navigator.pushNamedAndRemoveUntil(

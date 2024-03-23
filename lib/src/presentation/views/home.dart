@@ -14,7 +14,7 @@ import '../../domain/entities/mail.dart';
 import '../riverpod/navigator.dart';
 import '../widgets/button_widgets/empty_bin_widget.dart';
 import '../widgets/floating_action_button_widgets/floating_action_button_widget.dart';
-import '../widgets/list_view_content_widget.dart';
+import '../widgets/list_view_widgets/mail_list_view_content_widget.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -55,7 +55,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     //PageData data getHomeData(ref: ref, context: context, page: page);
     PageData data = getHomePageData(ref: ref, context: context, page: page);
     mailList = data.mailList;
-
     return Scaffold(
       key: _key,
       drawer: DrawerWidget(),

@@ -16,6 +16,16 @@ const safePadding = EdgeInsets.all(30);
 const verticalSpace30px = SizedBox(
   height: 30,
 );
+const horizontalSpace30px = SizedBox(
+  width: 30,
+);
+// Used in Welcome Page
+const verticalSpace10px = SizedBox(
+  height: 10,
+);
+const horizontalSpace20px = SizedBox(
+  width: 20,
+);
 // Used in text widget- address card widget.
 const rowSpacer = TableRow(children: [
   SizedBox(
