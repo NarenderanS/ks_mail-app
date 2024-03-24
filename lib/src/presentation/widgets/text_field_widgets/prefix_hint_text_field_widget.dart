@@ -13,7 +13,7 @@ class PrefixTextFieldWithFunctionWidget extends StatelessWidget {
   final VoidCallback onTap;
   final void Function(String value) onFieldSubmit;
   final String text;
-  final void Function(String value) filterList;
+  final void Function(String value, String list) filterList;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class PrefixTextFieldWithFunctionWidget extends StatelessWidget {
             child: const Icon(Icons.keyboard_arrow_down_outlined)),
       ),
       onFieldSubmitted: onFieldSubmit,
-      onChanged: (value) => filterList(value),
+      onChanged: (value) => filterList(value, text),
     );
   }
 }
@@ -51,7 +51,7 @@ class PrefixTextFieldWidget extends StatelessWidget {
   final String? text;
   final String? hintText;
   final void Function(String value)? onFieldSubmit;
-  final void Function(String value)? filterList;
+  final void Function(String value, String text)? filterList;
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +70,9 @@ class PrefixTextFieldWidget extends StatelessWidget {
             hintText: hintText ?? "",
           ),
           onFieldSubmitted: onFieldSubmit,
-          onChanged: (value) => filterList == null ? () {} : filterList!(value),
+          onChanged: (value) =>
+              filterList == null ? () {} : filterList!(value, text!.replaceAll(' ', '')),
         ),
-        // Visibility(child: Text("asa"),),
       ],
     );
   }
