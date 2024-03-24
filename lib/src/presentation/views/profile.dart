@@ -26,10 +26,6 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController phoneNoController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +39,20 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           ListTile(
               trailing: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     usernameController.text = currentUser!.username;
                     phoneNoController.text = currentUser!.phoneNo;
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return EdtProfileWidget(
-                              usernameController: usernameController,
-                              phoneNoController: phoneNoController);
-                        });
+                    if (await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return EdtProfileWidget(
+                                usernameController: usernameController,
+                                phoneNoController: phoneNoController,
+                              );
+                            }) ??
+                        false) {
+                      setState(() {});
+                    }
                   },
                   icon: editIcon)),
           ListTile(
@@ -81,11 +81,10 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class EdtProfileWidget extends ConsumerWidget {
-  const EdtProfileWidget({
-    super.key,
-    required this.usernameController,
-    required this.phoneNoController,
-  });
+  const EdtProfileWidget(
+      {super.key,
+      required this.usernameController,
+      required this.phoneNoController});
 
   final TextEditingController usernameController;
   final TextEditingController phoneNoController;
@@ -119,7 +118,7 @@ class EdtProfileWidget extends ConsumerWidget {
                       username: usernameController.text,
                       phoneNo: phoneNoController.text);
                   if (context.mounted) {
-                    Navigator.pop(context);
+                    Navigator.of(context).pop(true);
                   }
                 },
                 style: buttonStyle,

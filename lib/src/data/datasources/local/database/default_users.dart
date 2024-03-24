@@ -24,7 +24,7 @@ List<User> user = [
       createdAt: '2024-02-10 11:52:30.230'),
   User(
       id: 4,
-      username: "Anu",
+      username: "Anuu",
       mail: "anu@kumaran.com",
       phoneNo: "7876543211",
       password: "Anu@12",

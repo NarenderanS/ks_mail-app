@@ -24,14 +24,14 @@ class AppPage extends StatelessWidget {
           return FutureBuilder(
             future: ref.read(appsListProvider.notifier).getAllApps(),
             builder: (context, snapshot) {
-              // While fetching the data
+          // While fetching the data
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                     child: CircularProgressIndicator(
                   color: green700,
                 ));
               }
-              // If error occured
+          // If error occured
               else if (snapshot.hasError) {
                 return Center(
                   child: ListView(
@@ -48,7 +48,7 @@ class AppPage extends StatelessWidget {
                   ),
                 );
               }
-              // Data fetched
+          // Data fetched
               else {
                 final List<App> data = snapshot.data!;
                 return AppListViewWidget(appList: data);
