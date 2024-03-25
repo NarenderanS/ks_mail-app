@@ -142,7 +142,8 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                   PrefixTextFieldWithFunctionWidget(
                     toController: toController,
                     text: AppLocalizations.of(context)!.to,
-                    onFieldSubmit: (value) => _userNotFound(),
+                    onFieldSubmit: (value) =>
+                        _onFieldSubmit(value: value, list: 'to'),
                     onTap: () {
                       setState(() => subFieldVisible = !subFieldVisible);
                     },
@@ -178,7 +179,8 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                       PrefixTextFieldWidget(
                         controller: ccController,
                         text: "${AppLocalizations.of(context)!.cc}   ",
-                        onFieldSubmit: (value) => _userNotFound(),
+                        onFieldSubmit: (value) =>
+                            _onFieldSubmit(value: value, list: 'cc'),
                         filterList: _toFilterList,
                       ),
                       // To display suggestions
@@ -208,7 +210,8 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
                       PrefixTextFieldWidget(
                         controller: bccController,
                         text: "${AppLocalizations.of(context)!.bcc}   ",
-                        onFieldSubmit: (value) => _userNotFound(),
+                        onFieldSubmit: (value) =>
+                            _onFieldSubmit(value: value, list: 'bcc'),
                         filterList: _toFilterList,
                       ),
                       // To display suggestions
@@ -240,21 +243,11 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
+              print("siva $list");
               UserDetails user = ref
                   .read(userListNotifierProvider.notifier)
                   .getUserByMail(_filteredMailId[index]);
-              setState(() {
-                if (AppLocalizations.of(context)!.to == list) {
-                  toList.add(user);
-                  toController.text = '';
-                } else if (AppLocalizations.of(context)!.cc == list) {
-                  ccList.add(user);
-                  ccController.text = '';
-                } else if (AppLocalizations.of(context)!.bcc == list) {
-                  bccList.add(user);
-                  bccController.text = '';
-                }
-              });
+              _addToList(user, list);
             },
             child: ListTile(
               title: Text(_filteredMailId[index]),
@@ -263,36 +256,56 @@ class _NewMailPageState extends ConsumerState<NewMailPage> {
         });
   }
 
+// On Textfield submit
+  void _onFieldSubmit({required String value, required String list}) {
+    UserDetails user =
+        ref.read(userListNotifierProvider.notifier).getUserByMail(value);
+    if (user.mail == value) {
+      _addToList(user, list);
+    } else {
+      snackBar(context: context, text: AppLocalizations.of(context)!.not_found);
+    }
+  }
+
+// Add to the respective list
+  void _addToList(UserDetails user, String list) {
+    list = list.toLowerCase();
+    setState(() {
+      if ('to' == list) {
+        toList.add(user);
+        toController.text = '';
+      } else if ('cc' == list) {
+        ccList.add(user);
+        ccController.text = '';
+      } else if ('bcc' == list) {
+        bccList.add(user);
+        bccController.text = '';
+      }
+    });
+  }
+
 // Filter user to dsplay suggestion
   void _toFilterList(String value, String list) {
     List<UserDetails> mailList = [];
-    String controllerText = '';
     if (AppLocalizations.of(context)!.to == list) {
       mailList = toList;
-      controllerText = toController.text.toLowerCase();
     } else if (AppLocalizations.of(context)!.cc == list) {
       mailList = ccList;
-      controllerText = ccController.text.toLowerCase();
     } else if (AppLocalizations.of(context)!.bcc == list) {
       mailList = bccList;
-      controllerText = bccController.text.toLowerCase();
     }
     setState(() {
-      debugPrint('$value  $list  $controllerText');
+      debugPrint('$value  $list  controllerText');
       _filteredMailId = ref
           .read(userListNotifierProvider.notifier)
           .getAllUsersMails()
           .where((mailId) {
         if (!isContainsMail(mailList, mailId)) {
-          return mailId.contains(controllerText);
+          return mailId.contains(value.toLowerCase());
         }
         return false;
       }).toList();
       // print(_filteredMailId);
     });
-  }
-
-  void _userNotFound() {
-    snackBar(context: context, text: AppLocalizations.of(context)!.not_found);
   }
 }
